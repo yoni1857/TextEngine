@@ -96,13 +96,14 @@ namespace TextEngine
             string updatedir = MyPath + "\\Update";
             string configdir = MyPath + "\\Config";
             string resourcedir = MyPath + "\\Resource";
-            foreach(FileInfo file in new DirectoryInfo(updatedir).EnumerateFiles())
-            {
-                if (file.Extension == ".ypac")
+            if(Directory.Exists(updatedir))
+                foreach(FileInfo file in new DirectoryInfo(updatedir).EnumerateFiles())
                 {
-                    Package.LoadPackage(file.FullName);
+                    if (file.Extension == ".ypac")
+                    {
+                        Package.LoadPackage(file.FullName);
+                    }
                 }
-            }
             timer1.Start();
             currentDir = new DirectoryInfo(MyPath);
             if (File.Exists(resourcedir+"\\game.ico"))
