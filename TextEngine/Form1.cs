@@ -336,5 +336,10 @@ namespace TextEngine
             if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Enter)
                 Reply();
         }
+
+        private void fontHeightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

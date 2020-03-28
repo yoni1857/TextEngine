@@ -49,6 +49,7 @@
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.forwardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -77,7 +78,8 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.filleToolStripMenuItem,
-            this.backToolStripMenuItem});
+            this.backToolStripMenuItem,
+            this.forwardToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 28);
@@ -234,8 +236,9 @@
             // fontHeightToolStripMenuItem
             // 
             this.fontHeightToolStripMenuItem.Name = "fontHeightToolStripMenuItem";
-            this.fontHeightToolStripMenuItem.Size = new System.Drawing.Size(104, 27);
-            this.fontHeightToolStripMenuItem.Text = "Font Height:";
+            this.fontHeightToolStripMenuItem.Size = new System.Drawing.Size(83, 27);
+            this.fontHeightToolStripMenuItem.Text = "Font Size";
+            this.fontHeightToolStripMenuItem.Click += new System.EventHandler(this.fontHeightToolStripMenuItem_Click);
             // 
             // toolStripTextBox1
             // 
@@ -253,6 +256,12 @@
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
+            // forwardToolStripMenuItem
+            // 
+            this.forwardToolStripMenuItem.Name = "forwardToolStripMenuItem";
+            this.forwardToolStripMenuItem.Size = new System.Drawing.Size(77, 24);
+            this.forwardToolStripMenuItem.Text = "Forward";
             // 
             // Form1
             // 
@@ -305,6 +314,7 @@
         private System.Windows.Forms.ColumnHeader Options;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem doubleClickToSelectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem forwardToolStripMenuItem;
     }
 }
 
