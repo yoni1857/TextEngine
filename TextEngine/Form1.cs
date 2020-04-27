@@ -14,6 +14,7 @@ using YDK.Misc;
 using System.Text.RegularExpressions;
 using NAudio;
 using NAudio.Wave;
+using System.Speech.Synthesis;
 
 namespace TextEngine
 {
@@ -24,6 +25,8 @@ namespace TextEngine
         DirectoryInfo currentDir;
         private WaveOutEvent outputDevice;
         private AudioFileReader audioFile;
+        private SpeechSynthesizer SpeechSynthesizer = new SpeechSynthesizer();
+        private string desc = "TestEngine Game.";
 
         private void LoadDialog(string dir)
         {
@@ -64,6 +67,10 @@ namespace TextEngine
                             outputDevice.Play();
                         }
                         richTextBox1.AppendText(dialog.GetValue(0) + "\n");
+                        if (storyTTSToolStripMenuItem.Checked)
+                        {
+                            SpeechSynthesizer.SpeakAsync(dialog.GetValue(0));
+                        }
                         if(File.Exists(resourcedir+"\\sprites\\" + dialog.GetValue(255)))
                             pictureBox1.Image = Bitmap.FromFile(resourcedir+"\\sprites\\" + dialog.GetValue(255));
                         listView1.Items.Clear();
@@ -96,6 +103,7 @@ namespace TextEngine
             string updatedir = MyPath + "\\Update";
             string configdir = MyPath + "\\Config";
             string resourcedir = MyPath + "\\Resource";
+            SpeechSynthesizer.SetOutputToDefaultAudioDevice();
             if(Directory.Exists(updatedir))
                 foreach(FileInfo file in new DirectoryInfo(updatedir).EnumerateFiles())
                 {
@@ -114,6 +122,11 @@ namespace TextEngine
                 openToolStripMenuItem.Visible = false;
             } else
                 Text = "TextEngine";
+
+            if (File.Exists(configdir + "\\gamedesc.cfg"))
+            {
+                desc = (string)Tools.Read(configdir + "\\gamedesc.cfg");
+            }
 
             if (File.Exists(configdir + "\\colorscheme.xml"))
             {
@@ -157,6 +170,18 @@ namespace TextEngine
                     bool doubleClick = true;
                     bool.TryParse(data.GetValue(1), out doubleClick);
                     doubleClickToSelectToolStripMenuItem.Checked = doubleClick;
+                }
+                if (data.GetValue(2)!=null)
+                {
+                    bool StoryTTS = true;
+                    bool.TryParse(data.GetValue(2), out StoryTTS);
+                    storyTTSToolStripMenuItem.Checked = StoryTTS;
+                }
+                if (data.GetValue(2) != null)
+                {
+                    bool selectionTTS = true;
+                    bool.TryParse(data.GetValue(3), out selectionTTS);
+                    selectedOptionTTSToolStripMenuItem.Checked = selectionTTS;
                 }
             }
 
@@ -268,6 +293,9 @@ namespace TextEngine
                     Data nextDialog = Data.FromFile(currentDir.FullName + "\\" + id.ToString() + "\\dialog.xml");
                     if (nextDialog.GetValue(255) != null && File.Exists(resourcedir + "\\sprites\\" + nextDialog.GetValue(255)))
                         pictureBox1.Image = Bitmap.FromFile(resourcedir + "\\sprites\\" + nextDialog.GetValue(255));
+                    if(selectedOptionTTSToolStripMenuItem.Checked && SpeechSynthesizer.State != SynthesizerState.Speaking) {
+                        SpeechSynthesizer.Speak(listView1.SelectedItems[0].Text);
+                    }
                 }
             }
         }
@@ -304,7 +332,7 @@ namespace TextEngine
 
         private void Reply()
         {
-            if (listView1.SelectedItems.Count > 0)
+            if (listView1.SelectedItems.Count > 0 && SpeechSynthesizer.State != SynthesizerState.Speaking)
             {
                 int id = currentDialog.FindValue(listView1.SelectedItems[0].Text);
                 if (id != 0)
@@ -329,6 +357,8 @@ namespace TextEngine
             Data config = new Data();
             config.SetValue(0, toolStripTextBox1.Text);
             config.SetValue(1, doubleClickToSelectToolStripMenuItem.Checked.ToString());
+            config.SetValue(2, storyTTSToolStripMenuItem.Checked.ToString());
+            config.SetValue(3, selectedOptionTTSToolStripMenuItem.Checked.ToString());
             config.ToFile(MyPath + "\\Config\\config.xml");
         }
 
@@ -336,6 +366,12 @@ namespace TextEngine
         {
             if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Enter)
                 Reply();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox aboutBox = new AboutBox(desc, Text);
+            aboutBox.ShowDialog();
         }
     }
 }
