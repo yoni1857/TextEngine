@@ -35,6 +35,8 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.doubleClickToSelectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.storyTTSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectedOptionTTSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -49,8 +51,7 @@
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.storyTTSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectedOptionTTSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -79,7 +80,8 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.filleToolStripMenuItem,
-            this.backToolStripMenuItem});
+            this.backToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 28);
@@ -101,7 +103,7 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
@@ -112,7 +114,7 @@
             this.storyTTSToolStripMenuItem,
             this.selectedOptionTTSToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // doubleClickToSelectToolStripMenuItem
@@ -124,10 +126,24 @@
             this.doubleClickToSelectToolStripMenuItem.Size = new System.Drawing.Size(240, 26);
             this.doubleClickToSelectToolStripMenuItem.Text = "Double Click To Select";
             // 
+            // storyTTSToolStripMenuItem
+            // 
+            this.storyTTSToolStripMenuItem.CheckOnClick = true;
+            this.storyTTSToolStripMenuItem.Name = "storyTTSToolStripMenuItem";
+            this.storyTTSToolStripMenuItem.Size = new System.Drawing.Size(240, 26);
+            this.storyTTSToolStripMenuItem.Text = "Story TTS";
+            // 
+            // selectedOptionTTSToolStripMenuItem
+            // 
+            this.selectedOptionTTSToolStripMenuItem.CheckOnClick = true;
+            this.selectedOptionTTSToolStripMenuItem.Name = "selectedOptionTTSToolStripMenuItem";
+            this.selectedOptionTTSToolStripMenuItem.Size = new System.Drawing.Size(240, 26);
+            this.selectedOptionTTSToolStripMenuItem.Text = "Selected Option TTS";
+            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -258,19 +274,12 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
-            // storyTTSToolStripMenuItem
+            // aboutToolStripMenuItem
             // 
-            this.storyTTSToolStripMenuItem.CheckOnClick = true;
-            this.storyTTSToolStripMenuItem.Name = "storyTTSToolStripMenuItem";
-            this.storyTTSToolStripMenuItem.Size = new System.Drawing.Size(240, 26);
-            this.storyTTSToolStripMenuItem.Text = "Story TTS";
-            // 
-            // selectedOptionTTSToolStripMenuItem
-            // 
-            this.selectedOptionTTSToolStripMenuItem.CheckOnClick = true;
-            this.selectedOptionTTSToolStripMenuItem.Name = "selectedOptionTTSToolStripMenuItem";
-            this.selectedOptionTTSToolStripMenuItem.Size = new System.Drawing.Size(240, 26);
-            this.selectedOptionTTSToolStripMenuItem.Text = "Selected Option TTS";
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -325,6 +334,7 @@
         private System.Windows.Forms.ToolStripMenuItem doubleClickToSelectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem storyTTSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectedOptionTTSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 

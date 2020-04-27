@@ -26,6 +26,7 @@ namespace TextEngine
         private WaveOutEvent outputDevice;
         private AudioFileReader audioFile;
         private SpeechSynthesizer SpeechSynthesizer = new SpeechSynthesizer();
+        private string desc = "TestEngine Game.";
 
         private void LoadDialog(string dir)
         {
@@ -121,6 +122,11 @@ namespace TextEngine
                 openToolStripMenuItem.Visible = false;
             } else
                 Text = "TextEngine";
+
+            if (File.Exists(configdir + "\\gamedesc.cfg"))
+            {
+                desc = (string)Tools.Read(configdir + "\\gamedesc.cfg");
+            }
 
             if (File.Exists(configdir + "\\colorscheme.xml"))
             {
@@ -360,6 +366,12 @@ namespace TextEngine
         {
             if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Enter)
                 Reply();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox aboutBox = new AboutBox(desc, Text);
+            aboutBox.ShowDialog();
         }
     }
 }
