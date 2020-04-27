@@ -96,20 +96,21 @@ namespace TextEngine
             string updatedir = MyPath + "\\Update";
             string configdir = MyPath + "\\Config";
             string resourcedir = MyPath + "\\Resource";
-            foreach(FileInfo file in new DirectoryInfo(updatedir).EnumerateFiles())
-            {
-                if (file.Extension == ".ypac")
+            if(Directory.Exists(updatedir))
+                foreach(FileInfo file in new DirectoryInfo(updatedir).EnumerateFiles())
                 {
-                    Package.LoadPackage(file.FullName);
+                    if (file.Extension == ".ypac")
+                    {
+                        Package.LoadPackage(file.FullName);
+                    }
                 }
-            }
             timer1.Start();
             currentDir = new DirectoryInfo(MyPath);
             if (File.Exists(resourcedir+"\\game.ico"))
                 Icon = System.Drawing.Icon.ExtractAssociatedIcon(resourcedir+"\\game.ico");
             if(File.Exists(configdir + "\\game.cfg"))
             {
-                Text = Tools.Read(configdir + "\\game.cfg");
+                Text = (string)Tools.Read(configdir + "\\game.cfg");
                 openToolStripMenuItem.Visible = false;
             } else
                 Text = "TextEngine";
@@ -161,7 +162,7 @@ namespace TextEngine
 
             if (File.Exists(configdir + "\\autosave.s"))
             {
-                string text = Tools.Read(configdir + "\\autosave.s");
+                string text = (string)Tools.Read(configdir + "\\autosave.s");
                 if(!string.IsNullOrWhiteSpace(text) && File.Exists(text) && new FileInfo(text).Name == "dialog.xml")
                 {
                     LoadDialog(Directory.GetParent(text).FullName); 

@@ -1,0 +1,6 @@
+TextEngine/obj
+TextEngine/bin
+TextEngine/bin/
+TextEngine/obj/Debug
+*.exe
+*.cache

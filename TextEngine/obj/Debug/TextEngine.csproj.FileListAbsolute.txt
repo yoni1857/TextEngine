@@ -18,3 +18,22 @@ E:\Microsoft Visual Studio Projects\TextEngine\TextEngine\bin\Debug\AxInterop.WM
 E:\Microsoft Visual Studio Projects\TextEngine\TextEngine\obj\Debug\Interop.WMPLib.dll
 E:\Microsoft Visual Studio Projects\TextEngine\TextEngine\obj\Debug\AxInterop.WMPLib.dll
 E:\Microsoft Visual Studio Projects\TextEngine\TextEngine\obj\Debug\TextEngine.csproj.ResolveComReference.cache
+E:\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.csprojAssemblyReference.cache
+E:\GitHub\TextEngine\TextEngine\obj\Debug\Interop.WMPLib.dll
+E:\GitHub\TextEngine\TextEngine\obj\Debug\AxInterop.WMPLib.dll
+E:\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.csproj.ResolveComReference.cache
+E:\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.Form1.resources
+E:\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.Properties.Resources.resources
+E:\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.csproj.GenerateResource.cache
+E:\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.csproj.CoreCompileInputs.cache
+E:\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.exe
+E:\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.pdb
+E:\GitHub\TextEngine\TextEngine\bin\Debug\TextEngine.exe.config
+E:\GitHub\TextEngine\TextEngine\bin\Debug\TextEngine.exe
+E:\GitHub\TextEngine\TextEngine\bin\Debug\TextEngine.pdb
+E:\GitHub\TextEngine\TextEngine\bin\Debug\NAudio.dll
+E:\GitHub\TextEngine\TextEngine\bin\Debug\YDK.dll
+E:\GitHub\TextEngine\TextEngine\bin\Debug\NAudio.xml
+E:\GitHub\TextEngine\TextEngine\bin\Debug\Interop.WMPLib.dll
+E:\GitHub\TextEngine\TextEngine\bin\Debug\AxInterop.WMPLib.dll
+E:\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.csproj.CopyComplete
