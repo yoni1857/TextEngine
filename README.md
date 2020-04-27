@@ -10,7 +10,7 @@ The working directory (usually the directory where "TextEngine.exe" is located) 
 - Story
 - Update
 
-##Config
+## Config
 
 This folder houses multiple files that have multiple functionalities that we will go through:
 - autosave.s
