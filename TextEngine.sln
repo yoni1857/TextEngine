@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEngine", "TextEngine\Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YDK Data Editor", "C:\Users\yonim\source\repos\YDK List Editor\YDK List Editor\YDK Data Editor.csproj", "{22AD6184-EADA-42EF-9AAC-FB448AABD353}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackageCreatorTool", "PackageCreatorTool\PackageCreatorTool.csproj", "{6F6559C5-34EF-49D1-86C4-00CDDD3EC2EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{22AD6184-EADA-42EF-9AAC-FB448AABD353}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22AD6184-EADA-42EF-9AAC-FB448AABD353}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22AD6184-EADA-42EF-9AAC-FB448AABD353}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F6559C5-34EF-49D1-86C4-00CDDD3EC2EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F6559C5-34EF-49D1-86C4-00CDDD3EC2EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F6559C5-34EF-49D1-86C4-00CDDD3EC2EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F6559C5-34EF-49D1-86C4-00CDDD3EC2EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
