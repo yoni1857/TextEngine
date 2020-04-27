@@ -7,3 +7,4 @@ E:\GitHub\TextEngine\PackageCreatorTool\obj\Debug\PackageCreatorTool.csproj.Core
 E:\GitHub\TextEngine\PackageCreatorTool\obj\Debug\PackageCreatorTool.csproj.CopyComplete
 E:\GitHub\TextEngine\PackageCreatorTool\obj\Debug\PackageCreatorTool.exe
 E:\GitHub\TextEngine\PackageCreatorTool\obj\Debug\PackageCreatorTool.pdb
+E:\GitHub\TextEngine\PackageCreatorTool\bin\Debug\YDK.pdb
