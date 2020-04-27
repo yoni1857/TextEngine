@@ -8,3 +8,4 @@ TextEngine/obj
 TextEngine/bin
 *.exe
 *.cache
+.suo
