@@ -110,7 +110,7 @@ namespace TextEngine
                 Icon = System.Drawing.Icon.ExtractAssociatedIcon(resourcedir+"\\game.ico");
             if(File.Exists(configdir + "\\game.cfg"))
             {
-                Text = Tools.Read(configdir + "\\game.cfg");
+                Text = (string)Tools.Read(configdir + "\\game.cfg");
                 openToolStripMenuItem.Visible = false;
             } else
                 Text = "TextEngine";
@@ -162,7 +162,7 @@ namespace TextEngine
 
             if (File.Exists(configdir + "\\autosave.s"))
             {
-                string text = Tools.Read(configdir + "\\autosave.s");
+                string text = (string)Tools.Read(configdir + "\\autosave.s");
                 if(!string.IsNullOrWhiteSpace(text) && File.Exists(text) && new FileInfo(text).Name == "dialog.xml")
                 {
                     LoadDialog(Directory.GetParent(text).FullName); 
