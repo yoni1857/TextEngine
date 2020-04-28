@@ -62,6 +62,9 @@ This folder contains all of the sounds played during dialogs.
 It works pretty much the same as the sprites folder but all of the sounds have to be in wav format (I know, I know).
 To specify a sound from this folder to be played at the start of a dialog you have to specify it's name (again, including the extension) in the 255th (254th index) string of the dialog's xml file.
 
+###### PLEASE NOTE: 
+>As of commit `fb22f384fd88c9875db57b39e89ef90c99c58c47` on the testing branch a new system reserved file has been added to the wav folder. This file is called "selectionchanged.wav" and will play every time the user changes their selection in the reply options menu.
+
 #### game.ico
 This file is used as the game's icon.
 
