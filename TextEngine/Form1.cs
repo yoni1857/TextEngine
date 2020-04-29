@@ -279,9 +279,9 @@ namespace TextEngine
             string updatedir = MyPath + "\\Update";
             string configdir = MyPath + "\\Config";
             string resourcedir = MyPath + "\\Resource";
-            if (File.Exists(MyPath + "\\Sounds\\selectionchanged.wav"))
+            if (File.Exists(resourcedir + "\\wav\\selectionchanged.wav"))
             {
-                SoundPlayer player = new SoundPlayer(MyPath + "\\Sounds\\selectionchanged.wav");
+                SoundPlayer player = new SoundPlayer(resourcedir + "\\wav\\selectionchanged.wav");
                 player.Play();
                 player.Dispose();
             }

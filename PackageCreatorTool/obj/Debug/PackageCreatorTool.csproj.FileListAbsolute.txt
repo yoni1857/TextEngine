@@ -8,3 +8,13 @@ E:\GitHub\TextEngine\PackageCreatorTool\obj\Debug\PackageCreatorTool.csproj.Copy
 E:\GitHub\TextEngine\PackageCreatorTool\obj\Debug\PackageCreatorTool.exe
 E:\GitHub\TextEngine\PackageCreatorTool\obj\Debug\PackageCreatorTool.pdb
 E:\GitHub\TextEngine\PackageCreatorTool\bin\Debug\YDK.pdb
+C:\Users\Yoni Meller\Documents\GitHub\TextEngine\PackageCreatorTool\bin\Debug\PackageCreatorTool.exe.config
+C:\Users\Yoni Meller\Documents\GitHub\TextEngine\PackageCreatorTool\bin\Debug\PackageCreatorTool.exe
+C:\Users\Yoni Meller\Documents\GitHub\TextEngine\PackageCreatorTool\bin\Debug\PackageCreatorTool.pdb
+C:\Users\Yoni Meller\Documents\GitHub\TextEngine\PackageCreatorTool\bin\Debug\YDK.dll
+C:\Users\Yoni Meller\Documents\GitHub\TextEngine\PackageCreatorTool\bin\Debug\YDK.pdb
+C:\Users\Yoni Meller\Documents\GitHub\TextEngine\PackageCreatorTool\obj\Debug\PackageCreatorTool.csprojAssemblyReference.cache
+C:\Users\Yoni Meller\Documents\GitHub\TextEngine\PackageCreatorTool\obj\Debug\PackageCreatorTool.csproj.CoreCompileInputs.cache
+C:\Users\Yoni Meller\Documents\GitHub\TextEngine\PackageCreatorTool\obj\Debug\PackageCreatorTool.csproj.CopyComplete
+C:\Users\Yoni Meller\Documents\GitHub\TextEngine\PackageCreatorTool\obj\Debug\PackageCreatorTool.exe
+C:\Users\Yoni Meller\Documents\GitHub\TextEngine\PackageCreatorTool\obj\Debug\PackageCreatorTool.pdb
