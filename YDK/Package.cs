@@ -84,7 +84,7 @@ namespace YDK
             }
         }
 
-        public static string LoadPackage(string packagepath)
+        public static Package LoadPackage(string packagepath)
         {
             string MyPath = Directory.GetCurrentDirectory();
             if (File.Exists(packagepath))
@@ -100,13 +100,12 @@ namespace YDK
                         {
                             reader.Close();
                             string TEMPEXTRACTDIR = Path.GetTempPath() + "YDKTEMPFILES";
-                            if(Directory.Exists(TEMPEXTRACTDIR))
-                                Directory.Delete(TEMPEXTRACTDIR, true);
                             archive.ExtractToDirectory(TEMPEXTRACTDIR +"\\"+ package.ExtractPath);
                             DirectoryCopy(TEMPEXTRACTDIR + "\\" + package.ExtractPath, MyPath + "\\" + package.ExtractPath, true);
-                            Directory.Delete(TEMPEXTRACTDIR, true);
+                            reader.Close();
                             archive.Dispose();
-                            return MyPath+"\\"+package.ExtractPath;
+                            Directory.Delete(TEMPEXTRACTDIR, true);
+                            return package;
                         }
                     }
                 }
@@ -122,26 +121,27 @@ namespace YDK
         {
             if(file.Extension == ".ypac")
             {
-                try
-                {
-                    using (ZipArchive archive = ZipFile.OpenRead(file.FullName)) {
-                        ZipArchiveEntry entry = archive.GetEntry("package.xml");
-                        using (XmlReader reader = XmlReader.Create(entry.Open(), null))
+
+                using (ZipArchive archive = ZipFile.OpenRead(file.FullName)) {
+                    ZipArchiveEntry entry = archive.GetEntry("package.xml");
+                    using (TextReader reader = new StreamReader(entry.Open()))
+                    {
+                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(Package));
+                        Package package = (Package)xmlSerializer.Deserialize(reader);
+                        if (package.Author != null)
                         {
-                            Package package = (Package)reader.ReadContentAs(typeof(Package), null);
-                            if (package.Author != null)
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
+                            reader.Close();
+                            archive.Dispose();
+                            return true;
+                        }
+                        else
+                        {
+                            reader.Close();
+                            archive.Dispose();
+                            return false;
                         }
                     }
-                } catch (Exception)
-                {
-                    return false;
+                    
                 }
             } else
             {
