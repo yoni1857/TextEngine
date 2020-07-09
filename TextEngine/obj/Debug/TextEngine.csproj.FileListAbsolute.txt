@@ -18,3 +18,12 @@ E:\Microsoft Visual Studio Projects\TextEngine\TextEngine\bin\Debug\AxInterop.WM
 E:\Microsoft Visual Studio Projects\TextEngine\TextEngine\obj\Debug\Interop.WMPLib.dll
 E:\Microsoft Visual Studio Projects\TextEngine\TextEngine\obj\Debug\AxInterop.WMPLib.dll
 E:\Microsoft Visual Studio Projects\TextEngine\TextEngine\obj\Debug\TextEngine.csproj.ResolveComReference.cache
+C:\Users\admin\Documents\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.csprojAssemblyReference.cache
+C:\Users\admin\Documents\GitHub\TextEngine\TextEngine\obj\Debug\Interop.WMPLib.dll
+C:\Users\admin\Documents\GitHub\TextEngine\TextEngine\obj\Debug\AxInterop.WMPLib.dll
+C:\Users\admin\Documents\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.csproj.ResolveComReference.cache
+C:\Users\admin\Documents\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.Form1.resources
+C:\Users\admin\Documents\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.Properties.Resources.resources
+C:\Users\admin\Documents\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.csproj.GenerateResource.cache
+C:\Users\admin\Documents\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.exe
+C:\Users\admin\Documents\GitHub\TextEngine\TextEngine\obj\Debug\TextEngine.pdb
