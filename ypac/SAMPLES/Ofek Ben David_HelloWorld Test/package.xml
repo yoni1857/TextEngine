@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-16"?>
+<Package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>HelloWorld Test</Name>
+  <Version>-</Version>
+  <Author>Ofek Ben David</Author>
+  <ExtractPath>C:\Users\admin\Documents\GitHub\TextEngine\SampleProjects</ExtractPath>
+</Package>
