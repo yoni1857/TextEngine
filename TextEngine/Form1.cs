@@ -249,8 +249,6 @@ namespace TextEngine
                 string updatedir = MyPath + "\\Update";
                 string configdir = MyPath + "\\Config";
                 string resourcedir = MyPath + "\\Resource";
-                if (File.Exists(resourcedir + "\\sprites\\" + currentDialog.GetValue(255)))
-                    pictureBox1.Image = Bitmap.FromFile(resourcedir + "\\sprites\\" + currentDialog.GetValue(255));
             }
             splitContainer1.BackColor = pictureBox1.BackColor;
         }
