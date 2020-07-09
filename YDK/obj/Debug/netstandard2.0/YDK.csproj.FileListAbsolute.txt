@@ -1,0 +1,8 @@
+C:\Users\admin\Documents\GitHub\TextEngine\YDK\bin\netstandard2.0\YDK.deps.json
+C:\Users\admin\Documents\GitHub\TextEngine\YDK\bin\netstandard2.0\YDK.dll
+C:\Users\admin\Documents\GitHub\TextEngine\YDK\bin\netstandard2.0\YDK.pdb
+C:\Users\admin\Documents\GitHub\TextEngine\YDK\obj\Debug\netstandard2.0\YDK.csprojAssemblyReference.cache
+C:\Users\admin\Documents\GitHub\TextEngine\YDK\obj\Debug\netstandard2.0\YDK.AssemblyInfoInputs.cache
+C:\Users\admin\Documents\GitHub\TextEngine\YDK\obj\Debug\netstandard2.0\YDK.AssemblyInfo.cs
+C:\Users\admin\Documents\GitHub\TextEngine\YDK\obj\Debug\netstandard2.0\YDK.dll
+C:\Users\admin\Documents\GitHub\TextEngine\YDK\obj\Debug\netstandard2.0\YDK.pdb

@@ -1,0 +1,4 @@
+C:\Users\admin\Documents\GitHub\TextEngine\YDK List Editor\obj\Debug\YDK Data Editor.csprojAssemblyReference.cache
+C:\Users\admin\Documents\GitHub\TextEngine\YDK List Editor\obj\Debug\YDK_Data_Editor.Form1.resources
+C:\Users\admin\Documents\GitHub\TextEngine\YDK List Editor\obj\Debug\YDK_Data_Editor.Properties.Resources.resources
+C:\Users\admin\Documents\GitHub\TextEngine\YDK List Editor\obj\Debug\YDK Data Editor.csproj.GenerateResource.cache
