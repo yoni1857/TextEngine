@@ -1,7 +1,0 @@
-<import::citraxscript.xcitraxscript.xml;;>>
-main
-{
-	>> package.xml{
-		print "mainFile"
-	}
-}
