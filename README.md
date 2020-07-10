@@ -5,10 +5,10 @@ A choose-your-own-adventure text-based story engine for people who don't wanna c
 
 # File structure
 The working directory (usually the directory where "TextEngine.exe" is located) contains a couple of folder we will go through:
-- Config
-- Resource
-- Story
-- Update
+- [Config](#conifg)
+- [Resource](#resource)
+- [Story](#story)
+- [Update](#update)
 
 ## Config
 
@@ -103,7 +103,81 @@ The update folder contains .ypac archives which are extracted at runtime as a wa
 All .ypac archives are extracted locally.
 You can create .ypac archives using the Package Creator Tool.
 
+# YDK Data Editor
+this windows application is used to edit the dialog.xml files for the game in TextEngine.
+Here is a simple explanation of the controls.
+- Start
+- Open
+- Save
+- List
+- TextEditor
+- Applying Options
+- Saving as .ypac packages
+- Sample Projects
 
+### Start
+Start by making a new folder for your dialog.xml file, then make the dialog.xml
+file. After that open VisualStudio and choose as the Startup Project: YDK Data Editor.
+Run the YDK Data Editor and read the rest of the short documentation:
+
+### Open
+The OPEN control is used to open a dialog.xml file with YDK Data Editor.
+This is the only way to edit files (as for now).
+
+### Save
+With the save button (not ctrl+s) you save the edits you make for the file
+that you had opened.
+
+### List
+When you open the application you see a long list from 0 to 255. This list
+is the options list. The story data is in List number 0. To make choice options
+you must edit number 1 - 255.
+
+Once you DoubleClick on a number it will change the TextEditor data.
+
+### TextEditor
+In the TextEditor you edit the story text, and the options. If you edit an
+option make sure you put `>` at the start.
+
+### Applying Options
+To apply option changes in the dialog.xml folder you must make a new folder inside
+it. Make a folder per Option (Option 0 does not count as an option). Option folders
+must have the option number in it. For a folder of option 100 the folder name will
+be 100. For a folder of option 4 the folder name will be 4. All option folders must be
+in the directory of the parent dialog.xml (the dialog.xml that triggers the option).
+In the option folders make a new empty dialog.xml file. It is ok to have only 1 option
+or none. No options means: Game Over and 1 means that the player has no choice but to
+continue.
+
+### Saving as .ypac Packages
+To save your story as a package open visual studio, and change the Startup Project to
+PackageCreatorTool, and answer the questions like this: (_ = your input)
+
+```
+Author: _your_name_
+Extraction Path: _folder_name_
+Package Name: _package_name_
+Package Version: _package_version_
+Package Files Folder: _dialog.xml_first_folder_
+```
+
+After this in the: PackageCreationTool/Bin/Debug folder you will find your
+package (name:  packageName_authorName.ypac). To use your package, copy it
+and change the file name to .z to unzip it. After unziping in the folder you
+get check for your dialog.xml file and for your option folders (very easy to find).
+You will see a package.xml file, just dont touch it. You are free to open your dialog.xml
+file with TextEngine, but if you want to publish your package, make a GitHub repository
+with the ypac file and the zip file. To include your package in the official
+TextEngine repo, put it in the ypac Packages (the .ypac file) and commit (make sure to delete
+the folder and the zip file in the PackageCreatorTool folder).
+
+### Sample Projects
+There are 2 sample projects included, first one of them is Yoni's `Yoni Meller_Story.ypac` file
+found in the ypacPackages folder. The second one is not a story but a sample project which is
+Ofek's `SampleProject_OfekBenDavid.ypac`. To use those files, copy them (and paste) change the file
+extension to .z and unzip them. To edit them open the YDK Data Editor with Visual Studio or Executable and
+open the dialog.xml. To copy their files copy the files to your folder. Delete the zip files and the folders
+after being created. Do Not Edit the SamplePackages and commit, if you edit the sample files DONT COMMIT!
 
 # Big thanks
 
