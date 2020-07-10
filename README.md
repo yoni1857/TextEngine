@@ -179,7 +179,7 @@ extension to .z and unzip them. To edit them open the YDK Data Editor with Visua
 open the dialog.xml. To copy their files copy the files to your folder. Delete the zip files and the folders
 after being created. Do Not Edit the SamplePackages and commit, if you edit the sample files DONT COMMIT!
 
-# For Package Editors
+# PACKAGING LICENSE
 ```
 DO NOT EDIT OTHERS PACKAGES AND COMMIT. YOU ARE ALLOWED TO EDIT, COPY, SELL AND REDISTRIBUTE THE
 STORIES, BUT DO NOT EDIT OTHERS UNLESS THEY ARE IN THE OFFICIAL REPOSITORY.
