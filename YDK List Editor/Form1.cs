@@ -61,5 +61,10 @@ namespace YDK_Data_Editor
         {
 
         }
+
+        private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
