@@ -26,10 +26,11 @@ namespace YDK
         public void GeneratePackage(string ContentPath, string BuildPath)
         {
             string path = BuildPath + "\\" + this.Author + "_" + this.Name + ".ypac";
-            if(File.Exists(path))
+            if (File.Exists(path))
                 File.Delete(path);
             ZipFile.CreateFromDirectory(ContentPath, path);
-            using (FileStream stream = new FileStream(path, FileMode.Open)) {
+            using (FileStream stream = new FileStream(path, FileMode.Open))
+            {
                 using (ZipArchive package = new ZipArchive(stream, ZipArchiveMode.Update))
                 {
                     ZipArchiveEntry entry = package.CreateEntry("package.xml");
@@ -100,13 +101,13 @@ namespace YDK
                         {
                             reader.Close();
                             string TEMPEXTRACTDIR = Path.GetTempPath() + "YDKTEMPFILES";
-                            if(Directory.Exists(TEMPEXTRACTDIR))
+                            if (Directory.Exists(TEMPEXTRACTDIR))
                                 Directory.Delete(TEMPEXTRACTDIR, true);
-                            archive.ExtractToDirectory(TEMPEXTRACTDIR +"\\"+ package.ExtractPath);
+                            archive.ExtractToDirectory(TEMPEXTRACTDIR + "\\" + package.ExtractPath);
                             DirectoryCopy(TEMPEXTRACTDIR + "\\" + package.ExtractPath, MyPath + "\\" + package.ExtractPath, true);
                             Directory.Delete(TEMPEXTRACTDIR, true);
                             archive.Dispose();
-                            return MyPath+"\\"+package.ExtractPath;
+                            return MyPath + "\\" + package.ExtractPath;
                         }
                     }
                 }
@@ -120,11 +121,12 @@ namespace YDK
 
         public static bool IsPackageValid(FileInfo file)
         {
-            if(file.Extension == ".ypac")
+            if (file.Extension == ".ypac")
             {
                 try
                 {
-                    using (ZipArchive archive = ZipFile.OpenRead(file.FullName)) {
+                    using (ZipArchive archive = ZipFile.OpenRead(file.FullName))
+                    {
                         ZipArchiveEntry entry = archive.GetEntry("package.xml");
                         using (XmlReader reader = XmlReader.Create(entry.Open(), null))
                         {
@@ -139,11 +141,13 @@ namespace YDK
                             }
                         }
                     }
-                } catch (Exception)
+                }
+                catch (Exception)
                 {
                     return false;
                 }
-            } else
+            }
+            else
             {
                 return false;
             }
