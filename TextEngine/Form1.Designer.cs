@@ -117,7 +117,7 @@
             this.storyTTSToolStripMenuItem,
             this.selectedOptionTTSToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(178, 34);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // doubleClickToSelectToolStripMenuItem
@@ -135,6 +135,7 @@
             this.storyTTSToolStripMenuItem.Name = "storyTTSToolStripMenuItem";
             this.storyTTSToolStripMenuItem.Size = new System.Drawing.Size(287, 34);
             this.storyTTSToolStripMenuItem.Text = "Story TTS";
+            this.storyTTSToolStripMenuItem.Click += new System.EventHandler(this.storyTTSToolStripMenuItem_Click);
             // 
             // selectedOptionTTSToolStripMenuItem
             // 
@@ -142,6 +143,7 @@
             this.selectedOptionTTSToolStripMenuItem.Name = "selectedOptionTTSToolStripMenuItem";
             this.selectedOptionTTSToolStripMenuItem.Size = new System.Drawing.Size(287, 34);
             this.selectedOptionTTSToolStripMenuItem.Text = "Selected Option TTS";
+            this.selectedOptionTTSToolStripMenuItem.Click += new System.EventHandler(this.selectedOptionTTSToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 

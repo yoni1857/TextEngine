@@ -376,5 +376,15 @@ namespace TextEngine
         {
 
         }
+
+        private void storyTTSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void selectedOptionTTSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
