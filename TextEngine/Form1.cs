@@ -371,5 +371,10 @@ namespace TextEngine
             AboutBox aboutBox = new AboutBox(desc, Text);
             aboutBox.ShowDialog();
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
