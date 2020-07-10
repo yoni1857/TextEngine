@@ -25,7 +25,7 @@ namespace YDK
 
         public void GeneratePackage(string ContentPath, string BuildPath)
         {
-            string path = BuildPath + "\\" + this.Author + "_" + this.Name + ".ypac";
+            string path = BuildPath + "\\" + this.Name + "_" + this.Author + ".ypac";
             if (File.Exists(path))
                 File.Delete(path);
             ZipFile.CreateFromDirectory(ContentPath, path);
