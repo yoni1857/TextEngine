@@ -9,4 +9,4 @@ TextEngine/bin
 *.exe
 *.cache
 *.suo
-.vs/
+.vs/TextEngine/v16/.suo
