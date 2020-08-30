@@ -67,14 +67,10 @@
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.9F);
             this.richTextBox1.Location = new System.Drawing.Point(0, 27);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-<<<<<<< HEAD
-            this.richTextBox1.Size = new System.Drawing.Size(650, 389);
-=======
             this.richTextBox1.Size = new System.Drawing.Size(600, 172);
->>>>>>> master
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox_TextChanged);
@@ -88,12 +84,8 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-<<<<<<< HEAD
-            this.menuStrip1.Size = new System.Drawing.Size(800, 30);
-=======
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(600, 24);
->>>>>>> master
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -175,12 +167,7 @@
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.IsSplitterFixed = true;
-<<<<<<< HEAD
-            this.splitContainer1.Location = new System.Drawing.Point(0, 30);
-=======
             this.splitContainer1.Location = new System.Drawing.Point(0, 223);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
->>>>>>> master
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -191,11 +178,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.listView1);
-<<<<<<< HEAD
-            this.splitContainer1.Size = new System.Drawing.Size(150, 420);
-=======
             this.splitContainer1.Size = new System.Drawing.Size(600, 143);
->>>>>>> master
             this.splitContainer1.SplitterDistance = 150;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 2;
@@ -204,7 +187,7 @@
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(150, 143);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -219,18 +202,15 @@
             this.listView1.HideSelection = false;
             this.listView1.HoverSelection = true;
             this.listView1.Location = new System.Drawing.Point(0, 0);
-            this.listView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listView1.Margin = new System.Windows.Forms.Padding(2);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
             this.listView1.ShowItemToolTips = true;
-<<<<<<< HEAD
-            this.listView1.Size = new System.Drawing.Size(150, 266);
-=======
             this.listView1.Size = new System.Drawing.Size(447, 143);
->>>>>>> master
             this.listView1.TabIndex = 0;
+            this.listView1.TileSize = new System.Drawing.Size(200, 60);
             this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.List;
+            this.listView1.View = System.Windows.Forms.View.Tile;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.ListView1_SelectedIndexChanged);
             this.listView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListView1_KeyDown);
             this.listView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListView1_MouseClick);
@@ -242,16 +222,10 @@
             this.panel1.Controls.Add(this.richTextBox1);
             this.panel1.Controls.Add(this.menuStrip2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-<<<<<<< HEAD
-            this.panel1.Location = new System.Drawing.Point(150, 30);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(650, 420);
-=======
             this.panel1.Location = new System.Drawing.Point(0, 24);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(600, 199);
->>>>>>> master
             this.panel1.TabIndex = 3;
             // 
             // menuStrip2
@@ -313,7 +287,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

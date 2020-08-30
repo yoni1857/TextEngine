@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using NAudio;
 using NAudio.Wave;
 using System.Speech.Synthesis;
+using System.Threading;
 
 namespace TextEngine
 {
@@ -108,6 +109,7 @@ namespace TextEngine
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             string updatedir = MyPath + "\\Update";
             string configdir = MyPath + "\\Config";
             string resourcedir = MyPath + "\\Resource";
@@ -209,6 +211,8 @@ namespace TextEngine
                 openToolStripMenuItem.Visible = false;
             }
             toolStripTextBox1.Text = richTextBox1.Font.Size.ToString();
+
+            
         }
 
         private void FilleToolStripMenuItem_Click(object sender, EventArgs e)
@@ -261,6 +265,11 @@ namespace TextEngine
                 string resourcedir = MyPath + "\\Resource";
             }
             splitContainer1.BackColor = pictureBox1.BackColor;
+
+            listView1.Font = new Font(listView1.Font.FontFamily.Name,
+                (richTextBox1.Font.Size / 2) + 2,
+                FontStyle.Regular
+                );
         }
 
         private void BackToolStripMenuItem_Click(object sender, EventArgs e)
@@ -310,7 +319,7 @@ namespace TextEngine
 
         private void ToolStripTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            Regex pattern = new Regex("[\"':<>;,abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ{}_+=]");
+            Regex pattern = new Regex("[&*()^%$#@!\"':<>;,abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ{}_+=]");
             toolStripTextBox1.Text = pattern.Replace(toolStripTextBox1.Text, "").Replace("]", "").Replace("[", "").Replace("|", "").Replace("-", "");
             if (!string.IsNullOrWhiteSpace(toolStripTextBox1.Text))
             {
@@ -323,6 +332,8 @@ namespace TextEngine
 
                 }
             }
+
+            
         }
 
         private void ListView1_MouseHover(object sender, EventArgs e)
