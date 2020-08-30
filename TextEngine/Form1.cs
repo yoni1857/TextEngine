@@ -27,7 +27,7 @@ namespace TextEngine
         private AudioFileReader audioFile;
         private SpeechSynthesizer SpeechSynthesizer = new SpeechSynthesizer();
         private string desc = "TestEngine Game.";
-        private Color playerText = Color.GreenYellow;
+        private Color playerText = Color.Violet;
         private Color otherText = Color.Blue;
 
         private void LoadDialog(string dir)
