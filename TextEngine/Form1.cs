@@ -27,6 +27,8 @@ namespace TextEngine
         private AudioFileReader audioFile;
         private SpeechSynthesizer SpeechSynthesizer = new SpeechSynthesizer();
         private string desc = "TestEngine Game.";
+        private Color playerText = Color.GreenYellow;
+        private Color otherText = Color.Blue;
 
         private void LoadDialog(string dir)
         {
@@ -67,6 +69,12 @@ namespace TextEngine
                             outputDevice.Play();
                         }
                         richTextBox1.AppendText(dialog.GetValue(0) + "\n");
+                        richTextBox1.Select(
+                            richTextBox1.Text.Length-dialog.GetValue(0).Length-1,
+                            dialog.GetValue(0).Length
+                            );
+                        richTextBox1.SelectionColor = otherText;
+                        richTextBox1.DeselectAll();
                         if (storyTTSToolStripMenuItem.Checked)
                         {
                             SpeechSynthesizer.SpeakAsync(dialog.GetValue(0));
@@ -136,6 +144,8 @@ namespace TextEngine
                 pictureBox1.BackColor = Color.FromName(colorscheme.GetValue(2));
                 richTextBox1.BackColor = Color.FromName(colorscheme.GetValue(3));
                 listView1.BackColor = Color.FromName(colorscheme.GetValue(4));
+                playerText = Color.FromName(colorscheme.GetValue(5));
+                otherText = Color.FromName(colorscheme.GetValue(6));
                 makeFore(menuStrip1);
                 makeFore(menuStrip2);
                 makeFore(pictureBox1);
@@ -335,10 +345,27 @@ namespace TextEngine
                 int id = currentDialog.FindValue(listView1.SelectedItems[0].Text);
                 if (id != 0)
                 {
-                    if(currentDialog.GetValue(id)[0] == '>')
+                    if (currentDialog.GetValue(id)[0] == '>')
+                    {
                         richTextBox1.AppendText(currentDialog.GetValue(id) + "\n");
+                        richTextBox1.Select(
+                                richTextBox1.Text.Length - currentDialog.GetValue(id).Length - 1,
+                                currentDialog.GetValue(id).Length
+                                );
+                        richTextBox1.SelectionColor = playerText;
+                        richTextBox1.DeselectAll();
+                    }
                     else if (currentDialog.GetValue(id)[0] != '>')
-                        richTextBox1.AppendText("You: "+currentDialog.GetValue(id) + "\n");
+                    {
+                        richTextBox1.AppendText("You: " + currentDialog.GetValue(id) + "\n");
+                        string str = "You: " + currentDialog.GetValue(id);
+                        richTextBox1.Select(
+                                richTextBox1.Text.Length - str.Length - 1,
+                                str.Length
+                                );
+                        richTextBox1.SelectionColor = playerText;
+                        richTextBox1.DeselectAll();
+                    }
                     LoadDialog(currentDir.FullName + "\\" + id.ToString());
                 }
             }
