@@ -202,7 +202,8 @@ namespace TextEngine
                 string text = (string)Tools.Read(configdir + "\\autosave.s");
                 if(!string.IsNullOrWhiteSpace(text) && File.Exists(text) && new FileInfo(text).Name == "dialog.xml")
                 {
-                    LoadDialog(Directory.GetParent(text).FullName); 
+                    LoadDialog(Directory.GetParent(text).FullName);
+                    LoadDialog(Directory.GetParent(text).FullName);
                 }
             }
             else if (Directory.Exists(MyPath + "\\Story"))
