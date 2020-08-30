@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="YDK, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\YDK\bin\netstandard2.1\YDK.dll</HintPath>
+      <HintPath>..\YDK\bin\netstandard2.0\YDK.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
