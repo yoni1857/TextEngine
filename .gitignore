@@ -12,3 +12,4 @@ TextEngine/bin
 .vs/
 .vs/TextEngine/v16/.suo
 *.dll
+*.exe

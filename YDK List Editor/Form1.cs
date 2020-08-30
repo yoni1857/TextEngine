@@ -28,6 +28,7 @@ namespace YDK_Data_Editor
                 currentData = Data.FromFile(openFileDialog1.FileName);
                 currentFile = openFileDialog1.FileName;
                 listBox1.SelectedIndex = 0;
+                this.Text = "YDK Data Editor - "+openFileDialog1.FileName;
             }
         }
 
@@ -60,6 +61,17 @@ namespace YDK_Data_Editor
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                currentData = new Data();
+                currentFile = saveFileDialog1.FileName;
+                this.Text = "YDK Data Editor - " + saveFileDialog1.FileName;
+            }
+            
         }
     }
 }
