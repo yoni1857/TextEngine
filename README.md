@@ -36,6 +36,8 @@ Here is the order of the elements that are colored:
 |String 002 | Dialog picture background    |
 |String 003 | Textbox background color     |
 |String 004 | Dialog options box background|
+|String 005 | Player reply color           |
+|String 006 | Story text color             |
 
 #### config.xml
 This file stores all of the viewer's settings so no need to alter this one.
