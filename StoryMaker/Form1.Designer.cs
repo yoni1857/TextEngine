@@ -30,7 +30,7 @@ namespace StoryMaker
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("index");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("dialog");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -230,10 +230,10 @@ namespace StoryMaker
             this.treeView1.HideSelection = false;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode2.Name = "index";
-            treeNode2.Text = "index";
+            treeNode1.Name = "dialog";
+            treeNode1.Text = "dialog";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode1});
             this.treeView1.Size = new System.Drawing.Size(266, 388);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
@@ -588,8 +588,8 @@ namespace StoryMaker
             this.toolStripStatusLabel1.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.White;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(86, 28);
-            this.toolStripStatusLabel1.Text = "Index:0";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(92, 28);
+            this.toolStripStatusLabel1.Text = "dialog:0";
             this.toolStripStatusLabel1.TextChanged += new System.EventHandler(this.toolStripStatusLabel1_TextChanged);
             // 
             // saveFileDialog1

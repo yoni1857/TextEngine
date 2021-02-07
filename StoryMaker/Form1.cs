@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using YDK;
 using System.Runtime.Serialization;
+using System.IO;
+using System.Diagnostics;
 
 namespace StoryMaker
 {
@@ -189,6 +191,15 @@ namespace StoryMaker
                 if(exportFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     currentProject.ExportToStory(exportFileDialog1.SelectedPath);
+                    foreach (FileInfo File in new DirectoryInfo(Directory.GetParent(System.Reflection.Assembly.GetEntryAssembly().Location).FullName).EnumerateFiles())
+                    {
+                        if (File.Extension == ".pak")
+                            File.Delete();
+                    }
+                    if(MessageBox.Show("Project Successfully Exported! Would you like to view your files?", "Huzzah!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        Process.Start("explorer.exe", exportFileDialog1.SelectedPath);
+                    }
                 }
             } else
             {

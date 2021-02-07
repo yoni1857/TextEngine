@@ -22,7 +22,7 @@ namespace TextEngine
 {
     public partial class Form1 : Form
     {
-        string MyPath = "."/*Directory.GetParent(System.Reflection.Assembly.GetEntryAssembly().Location).FullName*/;
+        string MyPath = Directory.GetParent(System.Reflection.Assembly.GetEntryAssembly().Location).FullName;
         Data currentDialog;
         ZipArchive currentArchive;
         string currentArchiveName;
@@ -33,7 +33,6 @@ namespace TextEngine
         private Color playerText = Color.GreenYellow;
         private Color otherText = Color.Blue;
         private ZipArchive resourceArchive;
-        private Queue<(ZipArchive, string)> history;
 
         private void LoadDialog(ZipArchive storyArchive, string storyArchiveName, ZipArchive resourceArchive)
         {
@@ -42,15 +41,10 @@ namespace TextEngine
                 
                 foreach (ZipArchiveEntry file in storyArchive.Entries)
                 {
-                    if (file.Name == "dialog.ydkl")
+                    if (file.FullName == "dialog.ydkl")
                     {
                         currentArchive = storyArchive;
                         currentArchiveName = storyArchiveName;
-                        if (history.Count == 3)
-                        {
-                            history.Dequeue();
-                            history.Enqueue((currentArchive, currentArchiveName));
-                        }
                         Data dialog = Data.FromStream(file.Open());
                         if (File.Exists(MyPath + "\\Config\\autosave.s"))
                             File.Delete(MyPath + "\\Config\\autosave.s");
@@ -79,10 +73,16 @@ namespace TextEngine
                             outputDevice.Play();
                         }
                         richTextBox1.AppendText(dialog.GetValue(0) + "\n");
-                        richTextBox1.Select(
-                            richTextBox1.Text.Length-dialog.GetValue(0).Length-1,
-                            dialog.GetValue(0).Length
-                            );
+                        try
+                        {
+                            richTextBox1.Select(
+                                richTextBox1.Text.Length - dialog.GetValue(0).Length - 1,
+                                dialog.GetValue(0).Length
+                                );
+                        } catch
+                        {
+                            // UHHHH
+                        }
                         richTextBox1.SelectionColor = otherText;
                         richTextBox1.DeselectAll();
                         if (storyTTSToolStripMenuItem.Checked)
@@ -118,7 +118,6 @@ namespace TextEngine
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            history = new Queue<(ZipArchive, string)>();
             string updatedir = MyPath + "\\Update";
             string configdir = MyPath + "\\Config";
             if(File.Exists(MyPath+"\\res64.pak"))
@@ -133,8 +132,6 @@ namespace TextEngine
                     }
                 }
             timer1.Start();
-            currentArchive = ZipFile.Open(MyPath + "\\Story\\story.pak", ZipArchiveMode.Update);
-            currentArchiveName = "\\Story\\story.pak";
             if (resourceArchive.GetEntry("game.ico") != null)
                 Icon = new System.Drawing.Icon(resourceArchive.GetEntry("game.ico").Open());
             if(resourceArchive.GetEntry("gametitle") != null)
@@ -151,7 +148,7 @@ namespace TextEngine
 
             if (File.Exists(configdir + "\\colorscheme.xml"))
             {
-                Data colorscheme = Data.FromFile(configdir + "\\colorscheme.xml");
+                Data colorscheme = Data.FromXMLFile(configdir + "\\colorscheme.xml");
                 menuStrip1.BackColor = Color.FromName(colorscheme.GetValue(0));
                 menuStrip2.BackColor = Color.FromName(colorscheme.GetValue(1));
                 pictureBox1.BackColor = Color.FromName(colorscheme.GetValue(2));
@@ -210,13 +207,20 @@ namespace TextEngine
 
             if (File.Exists(configdir + "\\autosave.s"))
             {
-                var archiveName = (string)Tools.Read(MyPath + configdir + "\\autosave.s");
-                LoadDialog(ZipFile.OpenRead(archiveName), archiveName ,resourceArchive);
+                var archiveName = (string)Tools.Read(configdir + "\\autosave.s");
+                ZipArchive currentArchive = ZipFile.OpenRead(archiveName);
+                LoadDialog(currentArchive, archiveName ,resourceArchive);
             }
             else if (Directory.Exists(MyPath + "\\Story"))
             {
-                LoadDialog(currentArchive, currentArchiveName,resourceArchive);
+                ZipArchive archive = ZipFile.Open(MyPath + "\\Story\\story.pak", ZipArchiveMode.Update);
+                
+                currentArchive = archive;
+                currentArchiveName = "\\Story\\story.pak";
+
+                LoadDialog(currentArchive, currentArchiveName, resourceArchive);
                 openToolStripMenuItem.Visible = false;
+                
             }
             toolStripTextBox1.Text = richTextBox1.Font.Size.ToString();
 
@@ -251,13 +255,6 @@ namespace TextEngine
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            if(history.Count > 0)
-            {
-                backToolStripMenuItem.Enabled = true;
-            } else
-            {
-                backToolStripMenuItem.Enabled = false;
-            }
             splitContainer1.BackColor = pictureBox1.BackColor;
 
             listView1.Font = new Font(listView1.Font.FontFamily.Name,
@@ -277,10 +274,15 @@ namespace TextEngine
                 waveStream = null;
             }
             richTextBox1.AppendText(">> Back \n");
-            Queue<(ZipArchive, string)> actualHistory = (Queue<(ZipArchive, string)>)history.Reverse();
-            var archive = actualHistory.Dequeue();
-            LoadDialog(archive.Item1,archive.Item2 ,resourceArchive);
-            history = (Queue<(ZipArchive, string)>)actualHistory.Reverse();
+            string filename = Path.GetFileNameWithoutExtension(currentArchiveName);
+            if ("1234567890".Contains(filename[filename.Length - 1]))
+                filename = filename.Remove(filename.Length - 1);
+
+
+
+
+            ZipArchive archive = ZipFile.OpenRead(MyPath+"\\Story\\"+filename+".pak");
+            LoadDialog(archive,filename,resourceArchive);
         }
 
         private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
@@ -371,7 +373,7 @@ namespace TextEngine
                         richTextBox1.SelectionColor = playerText;
                         richTextBox1.DeselectAll();
                     }
-                    string nextArchive = Path.GetFileNameWithoutExtension(currentArchiveName) + id.ToString() + ".pak";
+                    string nextArchive = MyPath+"\\Story\\"+Path.GetFileNameWithoutExtension(currentArchiveName) + id.ToString() + ".pak";
                     LoadDialog(ZipFile.OpenRead(nextArchive),nextArchive, resourceArchive);
                 }
             }
