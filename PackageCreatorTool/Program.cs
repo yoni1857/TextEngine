@@ -12,17 +12,28 @@ namespace PackageCreatorTool
     {
         static void Main(string[] args)
         {
-            Package package = new Package();
-            Console.Write("Author: ");
-            package.Author = Console.ReadLine();
-            Console.Write("Extract Path: ");
-            package.ExtractPath = Console.ReadLine();
-            Console.Write("Package Name: ");
-            package.Name = Console.ReadLine();
-            Console.Write("Package Version: ");
-            package.Version = Console.ReadLine();
-            Console.Write("Package Files Folder: ");
-            package.GeneratePackage(Console.ReadLine(), "./");
+            if (args.Length <= 5)
+            {
+                Package package = new Package();
+                Console.Write("Author: ");
+                package.Author = Console.ReadLine();
+                Console.Write("Extract Path: ");
+                package.ExtractPath = Console.ReadLine();
+                Console.Write("Package Name: ");
+                package.Name = Console.ReadLine();
+                Console.Write("Package Version: ");
+                package.Version = Console.ReadLine();
+                Console.Write("Package Files Folder: ");
+                package.GeneratePackage(Console.ReadLine(), "./");
+            } else
+            {
+                Package package = new Package();
+                package.Author = args[1];
+                package.ExtractPath = args[2];
+                package.Name = args[3];
+                package.Version = args[5];
+                package.GeneratePackage(args[6], "./");
+            }
         }
     }
 }

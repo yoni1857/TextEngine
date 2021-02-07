@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,8 @@ namespace YDK_Data_Editor
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(openFileDialog1.ShowDialog() == DialogResult.OK)
+            openFileDialog1.Filter = "YDKL File|*.ydkl|All files|*.*";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 currentData = Data.FromFile(openFileDialog1.FileName);
                 currentFile = openFileDialog1.FileName;
@@ -48,10 +50,15 @@ namespace YDK_Data_Editor
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(currentFile != null)
+            if (Path.GetExtension(currentFile) == ".xml")
+            {
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                    currentData.ToFile(saveFileDialog1.FileName);
+            }
+            else if (currentFile != null)
             {
                 currentData.ToFile(currentFile);
-            }
+            } 
             else
             {
                 MessageBox.Show("Error: no DATA file open.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -72,6 +79,17 @@ namespace YDK_Data_Editor
                 this.Text = "YDK Data Editor - " + saveFileDialog1.FileName;
             }
             
+        }
+
+        private void openXMLFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "XML File |*.xml| All files |*.*";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                currentData = Data.FromXMLFile(openFileDialog1.FileName);
+                currentFile = openFileDialog1.FileName;
+                listBox1.SelectedIndex = 0;
+            }
         }
     }
 }

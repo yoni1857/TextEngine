@@ -1,0 +1,14 @@
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\bin\Debug\StoryMaker.exe.config
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\bin\Debug\StoryMaker.exe
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\bin\Debug\StoryMaker.pdb
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\bin\Debug\YDK.dll
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\bin\Debug\YDK.pdb
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.csprojAssemblyReference.cache
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.Form1.resources
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.ProjectDialog.resources
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.Properties.Resources.resources
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.csproj.GenerateResource.cache
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.csproj.CoreCompileInputs.cache
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.csproj.CopyComplete
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.exe
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.pdb

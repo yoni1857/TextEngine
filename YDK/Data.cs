@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using System.Xml.Serialization;
+using System.Runtime.Serialization;
 using System.Xml;
 using System.Xml.Schema;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 
 namespace YDK
 {
@@ -29,14 +31,19 @@ namespace YDK
         }
         public void ToFile(string path)
         {
-            XmlSerializer serializer = new XmlSerializer(GetType());
+            BinaryFormatter serializer = new BinaryFormatter();
             if (File.Exists(path))
                 File.Delete(path);
-            using (TextWriter writer = new StreamWriter(File.OpenWrite(path)))
+            using (FileStream fs = File.OpenWrite(path))
             {
-                serializer.Serialize(writer, this);
-                writer.Close();
+                serializer.Serialize(fs, this);
+                fs.Close();
             }
+        }
+        public void ToStream(Stream stream)
+        {
+            BinaryFormatter serializer = new BinaryFormatter();
+            serializer.Serialize(stream, this);
         }
 
         public int FindValue(string content)
@@ -50,16 +57,37 @@ namespace YDK
             }
             throw new KeyNotFoundException("Value not found.");
         }
-
         public static Data FromFile(string path)
+        {
+            BinaryFormatter serializer = new BinaryFormatter();
+            using (FileStream fs = File.OpenRead(path))
+            {
+                Data returndata = (Data)serializer.Deserialize(fs);
+                fs.Dispose();
+                return returndata;
+            }
+        }
+        public static Data FromStream(Stream stream)
+        {
+            BinaryFormatter serializer = new BinaryFormatter();
+            using (stream)
+            {
+                Data returndata = (Data)serializer.Deserialize(stream);
+                stream.Dispose();
+                return returndata;
+            }
+        }
+        // Purely for backwards compatibility purposes.
+        public static Data FromXMLFile(string path)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Data));
             using (TextReader reader = new StreamReader(File.OpenRead(path)))
             {
                 Data returndata = (Data)xmlSerializer.Deserialize(reader);
-                reader.Close();
+                reader.Dispose();
                 return returndata;
             }
+           
         }
 
     }

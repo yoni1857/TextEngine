@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Media;
 using System.Windows.Forms;
 using System.IO;
+using System.IO.Compression;
 using YDK;
 using YDK.Misc;
 using System.Text.RegularExpressions;
@@ -23,49 +24,57 @@ namespace TextEngine
     {
         string MyPath = "."/*Directory.GetParent(System.Reflection.Assembly.GetEntryAssembly().Location).FullName*/;
         Data currentDialog;
-        DirectoryInfo currentDir;
+        ZipArchive currentArchive;
+        string currentArchiveName;
         private WaveOutEvent outputDevice;
-        private AudioFileReader audioFile;
+        private WaveStream waveStream;
         private SpeechSynthesizer SpeechSynthesizer = new SpeechSynthesizer();
         private string desc = "TestEngine Game.";
         private Color playerText = Color.GreenYellow;
         private Color otherText = Color.Blue;
+        private ZipArchive resourceArchive;
+        private Queue<(ZipArchive, string)> history;
 
-        private void LoadDialog(string dir)
+        private void LoadDialog(ZipArchive storyArchive, string storyArchiveName, ZipArchive resourceArchive)
         {
-            string resourcedir = MyPath + "\\Resource";
-            DirectoryInfo directoryInfo = new DirectoryInfo(dir);
-            if (directoryInfo.Exists)
+            if (storyArchive != null)
             {
-                foreach(FileInfo file in directoryInfo.EnumerateFiles())
+                
+                foreach (ZipArchiveEntry file in storyArchive.Entries)
                 {
-                    if (file.Name == "dialog.xml")
+                    if (file.Name == "dialog.ydkl")
                     {
-                        currentDir = directoryInfo;
-                        Data dialog = Data.FromFile(file.FullName);
+                        currentArchive = storyArchive;
+                        currentArchiveName = storyArchiveName;
+                        if (history.Count == 3)
+                        {
+                            history.Dequeue();
+                            history.Enqueue((currentArchive, currentArchiveName));
+                        }
+                        Data dialog = Data.FromStream(file.Open());
                         if (File.Exists(MyPath + "\\Config\\autosave.s"))
                             File.Delete(MyPath + "\\Config\\autosave.s");
-                        Tools.Write(MyPath + "\\Config\\autosave.s", file.FullName);
+                        Tools.Write(MyPath + "\\Config\\autosave.s", storyArchiveName);
                         currentDialog = dialog;
-                        string wav = resourcedir + "\\wav\\" + dialog.GetValue(254);
-                        if (File.Exists(wav))
+                        string wav = "\\wav\\" + dialog.GetValue(254);
+                        if (resourceArchive.GetEntry(wav) != null)
                         {
                             if (outputDevice != null)
                             {
                                 outputDevice.Stop();
                                 outputDevice.Dispose();
                                 outputDevice = null;
-                                audioFile.Dispose();
-                                audioFile = null;
+                                waveStream.Dispose();
+                                waveStream = null;
                             }
                             if (outputDevice == null)
                             {
                                 outputDevice = new WaveOutEvent();
                             }
-                            if (audioFile == null)
+                            if (waveStream == null)
                             {
-                                audioFile = new AudioFileReader(wav);
-                                outputDevice.Init(audioFile);
+                                WaveStream stream = (WaveStream)resourceArchive.GetEntry(wav).Open();
+                                outputDevice.Init(stream);
                             }
                             outputDevice.Play();
                         }
@@ -80,8 +89,8 @@ namespace TextEngine
                         {
                             SpeechSynthesizer.SpeakAsync(dialog.GetValue(0));
                         }
-                        if(File.Exists(resourcedir+"\\sprites\\" + dialog.GetValue(255)))
-                            pictureBox1.Image = Bitmap.FromFile(resourcedir+"\\sprites\\" + dialog.GetValue(255));
+                        if (resourceArchive.GetEntry("\\sprites\\" + dialog.GetValue(255))!= null)
+                            pictureBox1.Image = Bitmap.FromStream(resourceArchive.GetEntry("\\sprites\\" + dialog.GetValue(255)).Open());
                         listView1.Items.Clear();
                         for(int i = 1; i < dialog.values.Length; i++)
                         {
@@ -109,10 +118,11 @@ namespace TextEngine
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            history = new Queue<(ZipArchive, string)>();
             string updatedir = MyPath + "\\Update";
             string configdir = MyPath + "\\Config";
-            string resourcedir = MyPath + "\\Resource";
+            if(File.Exists(MyPath+"\\res64.pak"))
+                resourceArchive = ZipFile.Open(MyPath + "\\res64.pak", ZipArchiveMode.Update);
             SpeechSynthesizer.SetOutputToDefaultAudioDevice();
             if(Directory.Exists(updatedir))
                 foreach(FileInfo file in new DirectoryInfo(updatedir).EnumerateFiles())
@@ -123,19 +133,20 @@ namespace TextEngine
                     }
                 }
             timer1.Start();
-            currentDir = new DirectoryInfo(MyPath);
-            if (File.Exists(resourcedir+"\\game.ico"))
-                Icon = System.Drawing.Icon.ExtractAssociatedIcon(resourcedir+"\\game.ico");
-            if(File.Exists(configdir + "\\game.cfg"))
+            currentArchive = ZipFile.Open(MyPath + "\\Story\\story.pak", ZipArchiveMode.Update);
+            currentArchiveName = "\\Story\\story.pak";
+            if (resourceArchive.GetEntry("game.ico") != null)
+                Icon = new System.Drawing.Icon(resourceArchive.GetEntry("game.ico").Open());
+            if(resourceArchive.GetEntry("gametitle") != null)
             {
-                Text = (string)Tools.Read(configdir + "\\game.cfg");
+                Text = (string)Tools.Read(resourceArchive.GetEntry("gametitle").Open());
                 openToolStripMenuItem.Visible = false;
             } else
                 Text = "TextEngine";
 
-            if (File.Exists(configdir + "\\gamedesc.cfg"))
+            if (resourceArchive.GetEntry("gametdesc") != null)
             {
-                desc = (string)Tools.Read(configdir + "\\gamedesc.cfg");
+                desc = (string)Tools.Read(resourceArchive.GetEntry("gamedesc").Open());
             }
 
             if (File.Exists(configdir + "\\colorscheme.xml"))
@@ -199,16 +210,12 @@ namespace TextEngine
 
             if (File.Exists(configdir + "\\autosave.s"))
             {
-                string text = (string)Tools.Read(configdir + "\\autosave.s");
-                if(!string.IsNullOrWhiteSpace(text) && File.Exists(text) && new FileInfo(text).Name == "dialog.xml")
-                {
-                    LoadDialog(Directory.GetParent(text).FullName);
-                    LoadDialog(Directory.GetParent(text).FullName);
-                }
+                var archiveName = (string)Tools.Read(MyPath + configdir + "\\autosave.s");
+                LoadDialog(ZipFile.OpenRead(archiveName), archiveName ,resourceArchive);
             }
             else if (Directory.Exists(MyPath + "\\Story"))
             {
-                LoadDialog(MyPath + "\\Story");
+                LoadDialog(currentArchive, currentArchiveName,resourceArchive);
                 openToolStripMenuItem.Visible = false;
             }
             toolStripTextBox1.Text = richTextBox1.Font.Size.ToString();
@@ -238,32 +245,18 @@ namespace TextEngine
         {
             if(openFileDialog1.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(openFileDialog1.FileName))
             {
-                LoadDialog(Directory.GetParent(openFileDialog1.FileName).FullName);
+                LoadDialog(ZipFile.OpenRead(openFileDialog1.FileName), openFileDialog1.FileName, resourceArchive);
             }
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            int isDialog = 0;
-            foreach(FileInfo file in Directory.GetParent(currentDir.FullName).EnumerateFiles())
-            {
-                if(file.Name == "dialog.xml")
-                {
-                    isDialog++;
-                }
-            }
-            if(isDialog > 0)
+            if(history.Count > 0)
             {
                 backToolStripMenuItem.Enabled = true;
             } else
             {
                 backToolStripMenuItem.Enabled = false;
-            }
-            if (!listView1.Focused)
-            {
-                string updatedir = MyPath + "\\Update";
-                string configdir = MyPath + "\\Config";
-                string resourcedir = MyPath + "\\Resource";
             }
             splitContainer1.BackColor = pictureBox1.BackColor;
 
@@ -280,11 +273,14 @@ namespace TextEngine
                 outputDevice.Stop();
                 outputDevice.Dispose();
                 outputDevice = null;
-                audioFile.Dispose();
-                audioFile = null;
+                waveStream.Dispose();
+                waveStream = null;
             }
             richTextBox1.AppendText(">> Back \n");
-            LoadDialog(Directory.GetParent(currentDir.FullName).FullName);
+            Queue<(ZipArchive, string)> actualHistory = (Queue<(ZipArchive, string)>)history.Reverse();
+            var archive = actualHistory.Dequeue();
+            LoadDialog(archive.Item1,archive.Item2 ,resourceArchive);
+            history = (Queue<(ZipArchive, string)>)actualHistory.Reverse();
         }
 
         private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
@@ -296,10 +292,9 @@ namespace TextEngine
         {
             string updatedir = MyPath + "\\Update";
             string configdir = MyPath + "\\Config";
-            string resourcedir = MyPath + "\\Resource";
-            if (File.Exists(resourcedir + "\\wav\\selectionchanged.wav"))
+            if (resourceArchive.GetEntry("\\wav\\selectionchanged.wav") != null)
             {
-                SoundPlayer player = new SoundPlayer(resourcedir + "\\wav\\selectionchanged.wav");
+                SoundPlayer player = new SoundPlayer(resourceArchive.GetEntry("\\wav\\selectionchanged.wav").Open());
                 player.Play();
                 player.Dispose();
             }
@@ -308,9 +303,6 @@ namespace TextEngine
                 int id = currentDialog.FindValue(listView1.SelectedItems[0].Text);
                 if (id != 0)
                 {
-                    Data nextDialog = Data.FromFile(currentDir.FullName + "\\" + id.ToString() + "\\dialog.xml");
-                    if (nextDialog.GetValue(255) != null && File.Exists(resourcedir + "\\sprites\\" + nextDialog.GetValue(255)))
-                        pictureBox1.Image = Bitmap.FromFile(resourcedir + "\\sprites\\" + nextDialog.GetValue(255));
                     if(selectedOptionTTSToolStripMenuItem.Checked && SpeechSynthesizer.State != SynthesizerState.Speaking) {
                         SpeechSynthesizer.Speak(listView1.SelectedItems[0].Text);
                     }
@@ -320,13 +312,14 @@ namespace TextEngine
 
         private void ToolStripTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            Regex pattern = new Regex("[&*()^%$#@!\"':<>;,abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ{}_+=]");
-            toolStripTextBox1.Text = pattern.Replace(toolStripTextBox1.Text, "").Replace("]", "").Replace("[", "").Replace("|", "").Replace("-", "");
+            float fontSize;
+            float.TryParse(toolStripTextBox1.Text, out fontSize);
+            toolStripTextBox1.Text = fontSize.ToString();
             if (!string.IsNullOrWhiteSpace(toolStripTextBox1.Text))
             {
                 try
                 {
-                    richTextBox1.Font = new Font(FontFamily.GenericSansSerif, (float)double.Parse(toolStripTextBox1.Text), FontStyle.Regular);
+                    richTextBox1.Font = new Font(FontFamily.GenericSansSerif, fontSize, FontStyle.Regular);
                 }
                 catch
                 {
@@ -378,7 +371,8 @@ namespace TextEngine
                         richTextBox1.SelectionColor = playerText;
                         richTextBox1.DeselectAll();
                     }
-                    LoadDialog(currentDir.FullName + "\\" + id.ToString());
+                    string nextArchive = Path.GetFileNameWithoutExtension(currentArchiveName) + id.ToString() + ".pak";
+                    LoadDialog(ZipFile.OpenRead(nextArchive),nextArchive, resourceArchive);
                 }
             }
         }

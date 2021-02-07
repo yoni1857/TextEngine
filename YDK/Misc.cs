@@ -35,6 +35,16 @@ namespace YDK
                 }
             }
 
+            public static object Read(Stream stream)
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string output = reader.ReadToEnd();
+                    reader.Close();
+                    return output;
+                }
+            }
+
             public static void Write(string path, byte[] data){
                 using(StreamWriter writer = new StreamWriter(path)){
                     writer.Write(data);
