@@ -4,9 +4,9 @@ A choose-your-own-adventure text-based story engine for people who don't wanna c
 
 
 # File structure
-The working directory (usually the directory where "TextEngine.exe" is located) contains a couple of folder we will go through:
+The working directory (usually the directory where "TextEngine.exe" is located) contains a couple of key folders and archives we will go through:
 - Config
-- Resource
+- res64.pak
 - Story
 - Update
 
@@ -16,8 +16,6 @@ This folder houses multiple files that have multiple functionalities that we wil
 - autosave.s
 - colorscheme.xml
 - config.xml
-- game.cfg
-- gamedesc.cfg
 
 #### autosave.s
 This file saves the user's progress in a story. It is recommended to delete this file when publishing your story since
@@ -40,17 +38,14 @@ Here is the order of the elements that are colored:
 #### config.xml
 This file stores all of the viewer's settings so no need to alter this one.
 
-#### game.cfg
-This file stores the game's name.
-
-#### gamedesc.cfg
-This file stores the game's description in the about box.
-
-## Resource
-This folder contains multiple files and folders that we will go over each:
-- sprites
-- wav
-- game.ico
+## res64.pak
+This is a compressed version of the folder previously known as "Resource", since it contains files that
+can be relatively big, we've decided to make it compressed. We will go over those files and folders each:
+- sprites (Folder)
+- wav (Folder)
+- game.ico (File)
+- gametitle (File)
+- gamedesc (File)
 
 ##### sprites
 This folder contains all of the sprites used in the dialogs.
@@ -60,7 +55,13 @@ Sprites are displayed by specfying their file name (including extension) in the 
 ##### wav
 This folder contains all of the sounds played during dialogs.
 It works pretty much the same as the sprites folder but all of the sounds have to be in wav format (I know, I know).
-To specify a sound from this folder to be played at the start of a dialog you have to specify it's name (again, including the extension) in the 255th (254th index) string of the dialog's xml file.
+To specify a sound from this folder to be played at the start of a dialog you have to specify it's name (again, including the extension) in the 255th (254th index) string of the dialog's .ydkl file.
+
+#### gametitle
+This file stores the game's name.
+
+#### gamedesc
+This file stores the game's description in the about box.
 
 ###### PLEASE NOTE: 
 >As of commit `fb22f384fd88c9875db57b39e89ef90c99c58c47` on the testing branch a new system reserved file has been added to the wav folder. This file is called "selectionchanged.wav" and will play every time the user changes their selection in the reply options menu.
@@ -72,28 +73,17 @@ This file is used as the game's icon.
 This folder stores the story of the game.
 This section will explain how stories are structured.
 
-A story is a series of dialogs. Each dialog contains other dialogs. (like a russian doll)
-For example, let's say we have a dialog in which the main character needs to choose which balloon to pop:
-##### dialog.xml:
-| INDEX       | VALUE                                                                  |
-|-------------|------------------------------------------------------------------------|
-|INDEX 0      | Sir, you have to choose which balloon to pop! The world depends on it! |
-|INDEX 1      | > Pop the Green Balloon                                                |
-|INDEX 2      | > Pop the Blue Balloon                                                 |
-|...INDEX 254 | dialog_ballonchoice.wav                                                |
-|INDEX 255    | character_sweating.png                                                 |
+The previous section that was here was obsolete so instead I am going to just add a section about StoryMaker since it is the recommended way of creating stories but isn't required (if you wanna torture yourself of course).
 
-##### dialog.xml root folder:
-|NAME       |SIZE  |
-|-----------|------|
-|1          | ~    |
-|2          | ~    |
-|dialog.xml | 2KB  |
+### StoryMaker
+StoryMaker is a tool introduced in build **[0.17708.27156](https://github.com/yoni1857/TextEngine/releases/tag/0.1.7708.27156)** (aka The Creator Update).
+Which allows users to easily create stories as well as save them for future use before exporting them.
 
-As you can see our dialog contained a few values which were the dialog's text (Index 0), the dialog's reply options 
-(Indexes 1 and 2 (Even though dialog reply options go from index 1 to index 149) ), the dialog's sound and the dialog's sprite.
+Exporting a story is pretty easy. First make sure you've saved it as a project, then, just hit File>>Export and pick a folder.
+After the story exports, you can take the resulting `.ypac` file and put it in your Update folder.
 
-To make a dialog reply lead to another dialog all you have to do is create a folder with the name of the reply's index inside the same folder where your dialog's xml file is located and create another dialog inside of your newly created folder.
+SM has a very neat project management system which allows you to create new projects and name them as you'd like.
+The program itself is pretty easy to use so you can try it out yourself!
 
 To close up this section I would also like to mention that dialog options starting with the right arrow (>) character count as actions and not as replies.
 
