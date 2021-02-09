@@ -120,8 +120,11 @@ namespace TextEngine
         {
             string updatedir = MyPath + "\\Update";
             string configdir = MyPath + "\\Config";
-            if(File.Exists(MyPath+"\\res64.pak"))
+            if (File.Exists(MyPath + "\\res64.pak"))
                 resourceArchive = ZipFile.Open(MyPath + "\\res64.pak", ZipArchiveMode.Update);
+            else
+                if(MessageBox.Show("Cannot start without res64.pak existing! Please create it.", "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
+                    Application.Exit();
             SpeechSynthesizer.SetOutputToDefaultAudioDevice();
             if(Directory.Exists(updatedir))
                 foreach(FileInfo file in new DirectoryInfo(updatedir).EnumerateFiles())
@@ -148,24 +151,30 @@ namespace TextEngine
 
             if (File.Exists(configdir + "\\colorscheme.xml"))
             {
-                Data colorscheme = Data.FromXMLFile(configdir + "\\colorscheme.xml");
-                menuStrip1.BackColor = Color.FromName(colorscheme.GetValue(0));
-                menuStrip2.BackColor = Color.FromName(colorscheme.GetValue(1));
-                pictureBox1.BackColor = Color.FromName(colorscheme.GetValue(2));
-                richTextBox1.BackColor = Color.FromName(colorscheme.GetValue(3));
-                listView1.BackColor = Color.FromName(colorscheme.GetValue(4));
-                playerText = Color.FromName(colorscheme.GetValue(5));
-                otherText = Color.FromName(colorscheme.GetValue(6));
-                makeFore(menuStrip1);
-                makeFore(menuStrip2);
-                makeFore(pictureBox1);
-                makeFore(richTextBox1);
-                makeFore(listView1);
-                listView1.BorderStyle = BorderStyle.None;
-                richTextBox1.BorderStyle = BorderStyle.None;
-                pictureBox1.BorderStyle = BorderStyle.None;
-                if(listView1.BackColor != Color.White)
-                    listView1.GridLines = false;
+                try
+                {
+                    Data colorscheme = Data.FromXMLFile(configdir + "\\colorscheme.xml");
+                    menuStrip1.BackColor = Color.FromName(colorscheme.GetValue(0));
+                    menuStrip2.BackColor = Color.FromName(colorscheme.GetValue(1));
+                    pictureBox1.BackColor = Color.FromName(colorscheme.GetValue(2));
+                    richTextBox1.BackColor = Color.FromName(colorscheme.GetValue(3));
+                    listView1.BackColor = Color.FromName(colorscheme.GetValue(4));
+                    playerText = Color.FromName(colorscheme.GetValue(5));
+                    otherText = Color.FromName(colorscheme.GetValue(6));
+                    makeFore(menuStrip1);
+                    makeFore(menuStrip2);
+                    makeFore(pictureBox1);
+                    makeFore(richTextBox1);
+                    makeFore(listView1);
+                    listView1.BorderStyle = BorderStyle.None;
+                    richTextBox1.BorderStyle = BorderStyle.None;
+                    pictureBox1.BorderStyle = BorderStyle.None;
+                    if (listView1.BackColor != Color.White)
+                        listView1.GridLines = false;
+                } catch
+                {
+                    MessageBox.Show("colorscheme.xml may be corrupt! Please contact whoever provided you with this file.", "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
 
@@ -207,19 +216,32 @@ namespace TextEngine
 
             if (File.Exists(configdir + "\\autosave.s"))
             {
-                var archiveName = (string)Tools.Read(configdir + "\\autosave.s");
-                ZipArchive currentArchive = ZipFile.OpenRead(archiveName);
-                LoadDialog(currentArchive, archiveName ,resourceArchive);
+                try
+                {
+                    var archiveName = (string)Tools.Read(configdir + "\\autosave.s");
+                    ZipArchive currentArchive = ZipFile.OpenRead(archiveName);
+                    LoadDialog(currentArchive, archiveName, resourceArchive);
+                } catch
+                {
+                    MessageBox.Show("Autosave corrupt. Please delete the file and restart the program.", "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else if (Directory.Exists(MyPath + "\\Story"))
             {
-                ZipArchive archive = ZipFile.Open(MyPath + "\\Story\\story.pak", ZipArchiveMode.Update);
-                
-                currentArchive = archive;
-                currentArchiveName = "\\Story\\story.pak";
+                try
+                {
+                    ZipArchive archive = ZipFile.Open(MyPath + "\\Story\\story.pak", ZipArchiveMode.Update);
 
-                LoadDialog(currentArchive, currentArchiveName, resourceArchive);
-                openToolStripMenuItem.Visible = false;
+                    currentArchive = archive;
+                    currentArchiveName = "\\Story\\story.pak";
+
+                    LoadDialog(currentArchive, currentArchiveName, resourceArchive);
+                    openToolStripMenuItem.Visible = false;
+                }
+                catch
+                {
+                    MessageBox.Show("Story file not found, loading manual mode. Please close the program if you have no idea what's happening and make sure to report this error.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 
             }
             toolStripTextBox1.Text = richTextBox1.Font.Size.ToString();
@@ -405,6 +427,17 @@ namespace TextEngine
         {
             AboutBox aboutBox = new AboutBox(desc, Text);
             aboutBox.ShowDialog();
+        }
+
+        private void filleToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            if (filleToolStripMenuItem.ForeColor != Color.Black)
+                filleToolStripMenuItem.ForeColor = Color.Black;
+        }
+
+        private void filleToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
+        {
+            filleToolStripMenuItem.ForeColor = (menuStrip1.BackColor.R + menuStrip1.BackColor.G + menuStrip1.BackColor.B) > 382 ? Color.Black : Color.White;
         }
     }
 }

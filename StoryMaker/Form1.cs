@@ -56,6 +56,9 @@ namespace StoryMaker
                 treeView1.SelectedNode = newNode;
                 listBox1.SelectedIndex = 0;
                 richTextBox1.Text = nodes[newNode].GetValue(listBox1.SelectedIndex);
+            } else
+            {
+                MessageBox.Show("Select a dialog first!");
             }
             
         }
@@ -69,10 +72,14 @@ namespace StoryMaker
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(treeView1.SelectedNode.Level != 0)
+            if(treeView1.SelectedNode != null && treeView1.SelectedNode.Level != 0)
             {
                 nodes.Remove(treeView1.SelectedNode);
                 treeView1.SelectedNode.Remove();
+            }
+            else if(treeView1.SelectedNode == null)
+            {
+                MessageBox.Show("Select a dialog first!");
             }
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -90,6 +97,10 @@ namespace StoryMaker
             {
                 nodes[treeView1.SelectedNode].SetValue(listBox1.SelectedIndex, null);
             }
+            else if(treeView1.SelectedNode == null)
+            {
+                MessageBox.Show("Select a dialog first!");
+            }
         }
 
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -102,9 +113,13 @@ namespace StoryMaker
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItem != null)
+            if (treeView1.SelectedNode != null && listBox1.SelectedItem != null)
             {
                 richTextBox1.Text = nodes[treeView1.SelectedNode].GetValue(listBox1.SelectedIndex);
+            }
+            else
+            {
+                MessageBox.Show("Select a dialog first!");
             }
         }
 
