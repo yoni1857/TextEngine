@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace YDK
 {
@@ -25,7 +26,6 @@ namespace YDK
         }
         public string GetValue(int id)
         { 
-            //throw new Exception("This computer has the gay!");
             return values[id];
             
         }
@@ -40,6 +40,27 @@ namespace YDK
                 fs.Close();
             }
         }
+
+        public void ToJsonFile(string path)
+        {
+            JsonSerializer jsonSerializer = new JsonSerializer();
+            using(TextWriter writer = new StreamWriter(File.OpenWrite(path)))
+            {
+                jsonSerializer.Serialize(writer, this, this.GetType());
+                writer.Dispose();
+            }
+        }
+
+        public static Data FromJsonFile(string path)
+        {
+            Data returnData = null;
+            using(TextReader reader = File.OpenText(path))
+            {
+                returnData = JsonConvert.DeserializeObject<Data>(reader.ReadToEnd());
+            }
+            return returnData;
+        }
+
         public void ToStream(Stream stream)
         {
             BinaryFormatter serializer = new BinaryFormatter();
