@@ -15,8 +15,6 @@ namespace StoryMaker
     public partial class ProjectEditDialog : Form
     {
         public Project Project;
-        private Dictionary<String, Image> Images;
-        private List<String> WAVs;
         public ProjectEditDialog(Project project)
         {
             InitializeComponent();
@@ -24,25 +22,11 @@ namespace StoryMaker
             DateTime date = project.CreationDate;
             dispDate.Text = $"{date.Day}/{date.Month}/{date.Year}  {date.TimeOfDay}";
             Project = project;
-            Images = new Dictionary<string, Image>();
-            WAVs = new List<string>();
-            foreach(ZipArchiveEntry entry in project.resArchive.Entries)
-            {
-                switch (Path.GetExtension(entry.Name.ToLower()))
-                {
-                    case ".png":
-                        Images.Add(entry.Name, Image.FromStream(entry.Open()));
-                        break;
-                    case ".wav":
-                        WAVs.Add(entry.Name);
-                        break;
-                }
-            }
         }
 
         private void ProjectDialog_Load(object sender, EventArgs e)
         {
-            PNGlist.Items.AddRange(Images.Keys.ToArray());
+            PNGlist.Items.AddRange(Project.Images.Keys.ToArray());
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -53,21 +37,14 @@ namespace StoryMaker
 
         private void PNGlist_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
-                ImagePreviewBox.Image = Images[PNGlist.SelectedItem.ToString()];
-            } catch
-            {
-                
-            }
+            ImagePreviewBox.BackgroundImage = PNGlist.SelectedIndex > -1 ? Project.Images[PNGlist.SelectedItem.ToString()] : null;
         }
 
         private void btnRemovePNG_Click(object sender, EventArgs e)
         {
             try
             {
-                Project.resArchive.GetEntry(PNGlist.SelectedItem.ToString()).Delete();
-                Images.Remove(PNGlist.SelectedItem.ToString());
+                Project.Images.Remove(PNGlist.SelectedItem.ToString());
                 PNGlist.Items.Remove(PNGlist.SelectedItem);
             }
             catch { }
@@ -76,6 +53,7 @@ namespace StoryMaker
         private void Clock_Tick(object sender, EventArgs e)
         {
             btnRemovePNG.Enabled = (PNGlist.SelectedIndex < 0);
+            btnRemoveWAV.Enabled = (WAVlist.SelectedIndex < 0);
         }
 
         private void btnAddPNG_Click(object sender, EventArgs e)
@@ -87,20 +65,44 @@ namespace StoryMaker
                     foreach (string filename in chooseImageDialog.FileNames)
                     {
                         string internalname = "sprites\\" + Path.GetFileName(filename);
-                        ZipArchiveEntry entry = Project.resArchive.CreateEntry(internalname);
-                        using (StreamWriter writer = new StreamWriter(entry.Open()))
-                        {
-                            using (StreamReader reader = new StreamReader(File.OpenRead(filename)))
-                            {
-                                writer.Write(reader.ReadToEnd());
-                            }
-                        }
-                        Images.Add(internalname, Image.FromFile(filename));
+                        Project.Images.Add(internalname, Image.FromFile(filename));
                         PNGlist.Items.Add(internalname);
                     }
                 }
             }
             catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}\nAt: {ex.TargetSite} | Help Link: {ex.HelpLink}");
+            }
+        }
+
+        private void btnRemoveWAV_Click(object sender, EventArgs e)
+        {
+            try {
+                Project.WAVs.Remove(WAVlist.SelectedItem.ToString());
+                WAVlist.Items.Remove(WAVlist.SelectedItem);
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        private void btnAddWAV_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if(chooseWAVDialog.ShowDialog() == DialogResult.OK)
+                {
+                    foreach(string filename in chooseWAVDialog.FileNames)
+                    {
+                        string internalname = "wav\\" + Path.GetFileName(filename);
+                        Project.WAVs.Add(internalname, File.ReadAllBytes(filename));
+
+                        WAVlist.Items.Add(internalname);
+                    }
+                }
+            } catch(Exception ex)
             {
                 MessageBox.Show($"{ex.Message}\nAt: {ex.TargetSite} | Help Link: {ex.HelpLink}");
             }

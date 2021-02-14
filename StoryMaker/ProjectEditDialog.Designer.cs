@@ -38,21 +38,28 @@ namespace StoryMaker
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnAddPNG = new System.Windows.Forms.Button();
-            this.btnRemovePNG = new System.Windows.Forms.Button();
             this.ImagePreviewBox = new System.Windows.Forms.PictureBox();
             this.PNGlist = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnRemovePNG = new System.Windows.Forms.Button();
+            this.btnAddPNG = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.WAVlist = new System.Windows.Forms.ListBox();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnRemoveWAV = new System.Windows.Forms.Button();
+            this.btnAddWAV = new System.Windows.Forms.Button();
             this.Clock = new System.Windows.Forms.Timer(this.components);
             this.chooseImageDialog = new System.Windows.Forms.OpenFileDialog();
+            this.chooseWAVDialog = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImagePreviewBox)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -151,17 +158,6 @@ namespace StoryMaker
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "PNGs";
             // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.Color.Gray;
-            this.tabPage2.ForeColor = System.Drawing.Color.White;
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1054, 338);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "WAVs";
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
@@ -179,47 +175,10 @@ namespace StoryMaker
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1048, 332);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // btnAddPNG
-            // 
-            this.btnAddPNG.BackColor = System.Drawing.Color.DimGray;
-            this.btnAddPNG.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddPNG.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
-            this.btnAddPNG.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.btnAddPNG.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
-            this.btnAddPNG.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAddPNG.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddPNG.ForeColor = System.Drawing.Color.LawnGreen;
-            this.btnAddPNG.Location = new System.Drawing.Point(3, 3);
-            this.btnAddPNG.Name = "btnAddPNG";
-            this.btnAddPNG.Size = new System.Drawing.Size(253, 71);
-            this.btnAddPNG.TabIndex = 0;
-            this.btnAddPNG.Text = "+";
-            this.btnAddPNG.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.btnAddPNG.UseVisualStyleBackColor = false;
-            this.btnAddPNG.Click += new System.EventHandler(this.btnAddPNG_Click);
-            // 
-            // btnRemovePNG
-            // 
-            this.btnRemovePNG.BackColor = System.Drawing.Color.DimGray;
-            this.btnRemovePNG.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnRemovePNG.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
-            this.btnRemovePNG.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.btnRemovePNG.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
-            this.btnRemovePNG.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnRemovePNG.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemovePNG.ForeColor = System.Drawing.Color.Red;
-            this.btnRemovePNG.Location = new System.Drawing.Point(262, 3);
-            this.btnRemovePNG.Name = "btnRemovePNG";
-            this.btnRemovePNG.Size = new System.Drawing.Size(253, 71);
-            this.btnRemovePNG.TabIndex = 1;
-            this.btnRemovePNG.Text = "-";
-            this.btnRemovePNG.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.btnRemovePNG.UseVisualStyleBackColor = false;
-            this.btnRemovePNG.Click += new System.EventHandler(this.btnRemovePNG_Click);
-            // 
             // ImagePreviewBox
             // 
             this.ImagePreviewBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ImagePreviewBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ImagePreviewBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ImagePreviewBox.Location = new System.Drawing.Point(527, 3);
             this.ImagePreviewBox.Name = "ImagePreviewBox";
@@ -253,6 +212,120 @@ namespace StoryMaker
             this.tableLayoutPanel2.Size = new System.Drawing.Size(518, 77);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
+            // btnRemovePNG
+            // 
+            this.btnRemovePNG.BackColor = System.Drawing.Color.DimGray;
+            this.btnRemovePNG.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRemovePNG.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+            this.btnRemovePNG.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btnRemovePNG.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.btnRemovePNG.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRemovePNG.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemovePNG.ForeColor = System.Drawing.Color.Red;
+            this.btnRemovePNG.Location = new System.Drawing.Point(262, 3);
+            this.btnRemovePNG.Name = "btnRemovePNG";
+            this.btnRemovePNG.Size = new System.Drawing.Size(253, 71);
+            this.btnRemovePNG.TabIndex = 1;
+            this.btnRemovePNG.Text = "-";
+            this.btnRemovePNG.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.btnRemovePNG.UseVisualStyleBackColor = false;
+            this.btnRemovePNG.Click += new System.EventHandler(this.btnRemovePNG_Click);
+            // 
+            // btnAddPNG
+            // 
+            this.btnAddPNG.BackColor = System.Drawing.Color.DimGray;
+            this.btnAddPNG.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAddPNG.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+            this.btnAddPNG.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btnAddPNG.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.btnAddPNG.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAddPNG.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddPNG.ForeColor = System.Drawing.Color.LawnGreen;
+            this.btnAddPNG.Location = new System.Drawing.Point(3, 3);
+            this.btnAddPNG.Name = "btnAddPNG";
+            this.btnAddPNG.Size = new System.Drawing.Size(253, 71);
+            this.btnAddPNG.TabIndex = 0;
+            this.btnAddPNG.Text = "+";
+            this.btnAddPNG.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.btnAddPNG.UseVisualStyleBackColor = false;
+            this.btnAddPNG.Click += new System.EventHandler(this.btnAddPNG_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.Gray;
+            this.tabPage2.Controls.Add(this.WAVlist);
+            this.tabPage2.Controls.Add(this.tableLayoutPanel3);
+            this.tabPage2.ForeColor = System.Drawing.Color.White;
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1054, 338);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "WAVs";
+            // 
+            // WAVlist
+            // 
+            this.WAVlist.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.WAVlist.FormattingEnabled = true;
+            this.WAVlist.ItemHeight = 16;
+            this.WAVlist.Location = new System.Drawing.Point(3, 3);
+            this.WAVlist.Name = "WAVlist";
+            this.WAVlist.Size = new System.Drawing.Size(1048, 232);
+            this.WAVlist.TabIndex = 1;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.btnRemoveWAV, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.btnAddWAV, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 235);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1048, 100);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // btnRemoveWAV
+            // 
+            this.btnRemoveWAV.BackColor = System.Drawing.Color.DimGray;
+            this.btnRemoveWAV.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRemoveWAV.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+            this.btnRemoveWAV.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btnRemoveWAV.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.btnRemoveWAV.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRemoveWAV.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveWAV.ForeColor = System.Drawing.Color.Red;
+            this.btnRemoveWAV.Location = new System.Drawing.Point(527, 3);
+            this.btnRemoveWAV.Name = "btnRemoveWAV";
+            this.btnRemoveWAV.Size = new System.Drawing.Size(518, 94);
+            this.btnRemoveWAV.TabIndex = 2;
+            this.btnRemoveWAV.Text = "-";
+            this.btnRemoveWAV.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.btnRemoveWAV.UseVisualStyleBackColor = false;
+            this.btnRemoveWAV.Click += new System.EventHandler(this.btnRemoveWAV_Click);
+            // 
+            // btnAddWAV
+            // 
+            this.btnAddWAV.BackColor = System.Drawing.Color.DimGray;
+            this.btnAddWAV.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAddWAV.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+            this.btnAddWAV.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btnAddWAV.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.btnAddWAV.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAddWAV.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddWAV.ForeColor = System.Drawing.Color.LawnGreen;
+            this.btnAddWAV.Location = new System.Drawing.Point(3, 3);
+            this.btnAddWAV.Name = "btnAddWAV";
+            this.btnAddWAV.Size = new System.Drawing.Size(518, 94);
+            this.btnAddWAV.TabIndex = 1;
+            this.btnAddWAV.Text = "+";
+            this.btnAddWAV.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.btnAddWAV.UseVisualStyleBackColor = false;
+            this.btnAddWAV.Click += new System.EventHandler(this.btnAddWAV_Click);
+            // 
             // Clock
             // 
             this.Clock.Tick += new System.EventHandler(this.Clock_Tick);
@@ -264,6 +337,12 @@ namespace StoryMaker
             this.chooseImageDialog.Filter = "PNG Images|*.png";
             this.chooseImageDialog.Multiselect = true;
             this.chooseImageDialog.Title = "Choose Image";
+            // 
+            // chooseWAVDialog
+            // 
+            this.chooseWAVDialog.DefaultExt = "wav";
+            this.chooseWAVDialog.Filter = "WAV Files |*.wav";
+            this.chooseWAVDialog.Multiselect = true;
             // 
             // ProjectEditDialog
             // 
@@ -290,6 +369,8 @@ namespace StoryMaker
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ImagePreviewBox)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -314,5 +395,10 @@ namespace StoryMaker
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Timer Clock;
         private System.Windows.Forms.OpenFileDialog chooseImageDialog;
+        private System.Windows.Forms.ListBox WAVlist;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Button btnRemoveWAV;
+        private System.Windows.Forms.Button btnAddWAV;
+        private System.Windows.Forms.OpenFileDialog chooseWAVDialog;
     }
 }

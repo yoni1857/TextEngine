@@ -11,6 +11,9 @@ using YDK;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Diagnostics;
+using System.Media;
+using System.IO.Compression;
+using static System.Windows.Forms.ListView;
 
 namespace StoryMaker
 {
@@ -19,10 +22,13 @@ namespace StoryMaker
         Dictionary<TreeNode, Data> nodes;
         Project currentProject;
         string currentPath;
+        SoundPlayer soundPlayer;
+        ListViewItemCollection prevItems;
         public Form1()
         {
             InitializeComponent();
             nodes = new Dictionary<TreeNode, Data>();
+            prevItems = replyList.Items;
             timer1.Start();
         }
 
@@ -42,6 +48,14 @@ namespace StoryMaker
                 else
                     treeView1.Nodes.Add(node);
             }
+
+            wavPicker.Items.Clear();
+            wavPicker.Items.Add("");
+            wavPicker.Items.AddRange(project.WAVs.Keys.ToArray());
+            dialogImagePicker.Items.Clear();
+            dialogImagePicker.Items.Add("");
+            dialogImagePicker.Items.AddRange(project.Images.Keys.ToArray());
+
             treeView1.EndUpdate();
             currentProject = project;
         }
@@ -54,8 +68,7 @@ namespace StoryMaker
                 nodes.Add(newNode, new Data());
                 treeView1.SelectedNode.Expand();
                 treeView1.SelectedNode = newNode;
-                listBox1.SelectedIndex = 0;
-                richTextBox1.Text = nodes[newNode].GetValue(listBox1.SelectedIndex);
+                treeView1_AfterSelect(sender, null);
             } else
             {
                 MessageBox.Show("Select a dialog first!");
@@ -67,7 +80,6 @@ namespace StoryMaker
         {
             nodes.Add(treeView1.Nodes[0], new Data());
             treeView1.SelectedNode = treeView1.Nodes[0];
-            listBox1.SelectedIndex = 0;
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -84,43 +96,32 @@ namespace StoryMaker
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if(treeView1.SelectedNode != null)
-                toolStripStatusLabel1.Text = treeView1.SelectedNode.Text + ":" + listBox1.SelectedIndex.ToString();
-        }
+            if (treeView1.SelectedNode != null)
+                toolStripStatusLabel1.Text = treeView1.SelectedNode.Parent != null ? treeView1.SelectedNode.Parent.Text + " --> " + treeView1.SelectedNode.Text : treeView1.SelectedNode.Text;
+            if(prevItems != replyList.Items && treeView1.SelectedNode != null)
+            {
+                Data selectedData = nodes[treeView1.SelectedNode];
+                for (int i = 1; i < 10; i++)
+                {
+                    if (replyList.Items.Count > i - 1)
+                    {
+                        selectedData.SetValue(i, replyList.Items[i - 1].Text);
+                    }
+                    else
+                    {
+                        selectedData.SetValue(i, null);
+                    }
+                }
+            }
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-            if (treeView1.SelectedNode != null && !String.IsNullOrWhiteSpace(richTextBox1.Text))
-            {
-                nodes[treeView1.SelectedNode].SetValue(listBox1.SelectedIndex, richTextBox1.Text);
-            } else if (String.IsNullOrWhiteSpace(richTextBox1.Text))
-            {
-                nodes[treeView1.SelectedNode].SetValue(listBox1.SelectedIndex, null);
-            }
-            else if(treeView1.SelectedNode == null)
-            {
-                MessageBox.Show("Select a dialog first!");
-            }
+            prevItems = replyList.Items;
         }
 
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (treeView1.SelectedNode == null)
                 return;
-            richTextBox1.Text = nodes[treeView1.SelectedNode].GetValue(listBox1.SelectedIndex);
-            listBox1.SelectedIndex = 0;
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (treeView1.SelectedNode != null && listBox1.SelectedItem != null)
-            {
-                richTextBox1.Text = nodes[treeView1.SelectedNode].GetValue(listBox1.SelectedIndex);
-            }
-            else
-            {
-                MessageBox.Show("Select a dialog first!");
-            }
+            promptBox_TextChanged(sender, e);
         }
 
         private void fileToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
@@ -226,15 +227,14 @@ namespace StoryMaker
         {
             if (treeView1.SelectedNode == null)
                 return;
-            richTextBox1.Text = nodes[treeView1.SelectedNode].GetValue(listBox1.SelectedIndex);
-            listBox1.SelectedIndex = 0;
+            treeView1_AfterSelect(sender, null);
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             if(currentProject != null)
             {
-                ProjectDialog projectDialog = new ProjectDialog(currentProject);
+                ProjectEditDialog projectDialog = new ProjectEditDialog(currentProject);
                 if(projectDialog.ShowDialog() == DialogResult.OK)
                 {
                     LoadProject(projectDialog.Project);
@@ -293,18 +293,133 @@ namespace StoryMaker
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (listBox1.SelectedItem != null)
+            Data selectedData = nodes[treeView1.SelectedNode];
+            promptBox.Text = selectedData.GetValue(0);
+            dialogImagePicker.SelectedItem = string.IsNullOrEmpty(selectedData.GetValue(255)) ? "" : selectedData.GetValue(255);
+            wavPicker.SelectedItem = string.IsNullOrEmpty(selectedData.GetValue(254)) ? "" : selectedData.GetValue(254);
+            replyList.Items.Clear();
+            for (int i = 1; i < 10; i++)
             {
-                richTextBox1.Text = nodes[treeView1.SelectedNode].GetValue(listBox1.SelectedIndex);
+                if(selectedData.GetValue(i)!= null)
+                    replyList.Items.Add(selectedData.GetValue(i));
             }
+            replyList.EndUpdate();
+            wavPicker_SelectedValueChanged(sender, e);
+            dialogImagePicker_SelectedValueChanged(sender, e);
         }
 
         private void toolStripStatusLabel1_TextChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItem != null)
+
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            promptBox_TextChanged(sender, e);
+            if (replyList.Items.Count != 10)
+                replyList.Items.Add("New Option");
+            else
+                MessageBox.Show("Reached max limit of options!");
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            promptBox_TextChanged(sender, e);
+            if (replyList.SelectedItems != null)
             {
-                richTextBox1.Text = nodes[treeView1.SelectedNode].GetValue(listBox1.SelectedIndex);
+                replyList.Items.Remove(replyList.SelectedItems[0]);
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (soundPlayer != null)
+            {
+                soundPlayer.Play();
+            }
+            else
+            {
+                if (wavPicker.SelectedItem != null)
+                {
+                    Stream stream = new MemoryStream(currentProject.WAVs[wavPicker.SelectedItem.ToString()]);
+
+                    soundPlayer = new SoundPlayer(stream);
+
+                    button3_Click(sender, e);
+                }
+                else MessageBox.Show("No sound to play!");
+            }
+            
+        }
+
+        private void wavPicker_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode != null)
+            {
+                Data selectedData = nodes[treeView1.SelectedNode];
+                selectedData.SetValue(254, (string)wavPicker.SelectedItem);
+            }
+            if (soundPlayer != null)
+                soundPlayer.Stop();
+            try
+            {
+                if (currentProject != null && wavPicker.SelectedItem != null)
+                {
+                    Stream stream = new MemoryStream(currentProject.WAVs[wavPicker.SelectedText]);
+                    soundPlayer = new SoundPlayer(stream);
+                }
+            }
+            catch { return;  }
+        }
+
+        private void dialogImagePicker_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode != null)
+            {
+                Data selectedData = nodes[treeView1.SelectedNode];
+                selectedData.SetValue(255, (string)dialogImagePicker.SelectedItem);
+            }
+            try
+            {
+                if(currentProject!=null && dialogImagePicker.SelectedItem != null)
+                    dialogImageBox.BackgroundImage = string.IsNullOrWhiteSpace(dialogImagePicker.SelectedItem.ToString()) ? null : currentProject.Images[dialogImagePicker.SelectedItem.ToString()];
+            }
+            catch { return; }
+        }
+
+        private void promptBox_TextChanged(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode != null)
+            {
+                Data selectedData = nodes[treeView1.SelectedNode];
+                selectedData.SetValue(0, promptBox.Text);
+            }
+            else MessageBox.Show("Please select a node first!");
+        }
+
+        private void wavPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void panel2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            panel2.Size = new Size(panel2.Width + 100, panel2.Height + 100);
+        }
+
+        private void btnMin_Click(object sender, EventArgs e)
+        {
+            panel2.Size = new Size(panel2.Width - 100, panel2.Height - 100);
         }
     }
 }

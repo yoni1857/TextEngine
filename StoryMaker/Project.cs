@@ -10,6 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.IO.Compression;
 using System.Xml.Serialization;
+using System.Drawing;
 
 namespace StoryMaker
 {
@@ -19,7 +20,8 @@ namespace StoryMaker
         public string Name;
         public readonly DateTime CreationDate;
         public Dictionary<TreeNode, Data> Nodes;
-        public readonly ZipArchive resArchive;
+        public Dictionary<string, byte[]> WAVs;
+        public Dictionary<string, Image> Images;
 
         public Project(string name)
         {
@@ -27,31 +29,18 @@ namespace StoryMaker
             Nodes = new Dictionary<TreeNode, Data>();
             Nodes.Add(new TreeNode("dialog"), new Data());
             CreationDate = DateTime.Now;
-        }
-        public Project(string name, ZipArchive resArchive)
-        {
-            Name = name;
-            Nodes = new Dictionary<TreeNode, Data>();
-            Nodes.Add(new TreeNode("dialog"), new Data());
-            CreationDate = DateTime.Now;
-            this.resArchive = resArchive;
+            WAVs = new Dictionary<string, byte[]>();
+            Images = new Dictionary<string, Image>();
         }
         public Project(string name, Dictionary<TreeNode, Data> nodes)
-        {
-            Name = name;
-            if(nodes.Count == 0)
-                nodes.Add(new TreeNode("dialog"), new Data());
-            Nodes = nodes;
-            CreationDate = DateTime.Now;
-        }
-        public Project(string name, Dictionary<TreeNode, Data> nodes, ZipArchive resArchive)
         {
             Name = name;
             if (nodes.Count == 0)
                 nodes.Add(new TreeNode("dialog"), new Data());
             Nodes = nodes;
             CreationDate = DateTime.Now;
-            this.resArchive = resArchive;
+            WAVs = new Dictionary<string, byte[]>();
+            Images = new Dictionary<string, Image>();
         }
 
         public static void ToFile(string path, Project project)
@@ -65,7 +54,7 @@ namespace StoryMaker
         {
             using (Stream stream = File.OpenWrite(path)) {
                 BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(stream, this); 
+                formatter.Serialize(stream, this);
             }
         }
 
@@ -73,7 +62,7 @@ namespace StoryMaker
         {
             using (Stream stream = File.OpenRead(path)) {
                 BinaryFormatter formatter = new BinaryFormatter();
-                return (Project)formatter.Deserialize(stream); 
+                return (Project)formatter.Deserialize(stream);
             }
         }
 
@@ -89,7 +78,7 @@ namespace StoryMaker
                     ZipArchiveEntry manifest = resBits.CreateEntry("package.xml");
                     Package package = new Package();
                     package.Author = "StoryMaker";
-                    package.Name = this.Name+" Resource Archive";
+                    package.Name = this.Name + " Resource Archive";
                     package.ExtractPath = "\\";
                     using (StringWriter writer = new StringWriter())
                     {
@@ -107,27 +96,29 @@ namespace StoryMaker
                 ZipArchiveEntry res64 = resBits.CreateEntry("res64.pak");
                 using (Stream stream = res64.Open())
                 {
-                    using(ZipArchive tempArchive = new ZipArchive(stream))
+                    using (ZipArchive archive = new ZipArchive(stream, ZipArchiveMode.Update))
                     {
-                        foreach (ZipArchiveEntry entry in resArchive.Entries)
+                        foreach (string wav in WAVs.Keys)
                         {
-                            ZipArchiveEntry newEntry = tempArchive.CreateEntry(entry.Name);
-                            using(StreamWriter writer = new StreamWriter(newEntry.Open()))
+                            ZipArchiveEntry entry = archive.CreateEntry(wav);
+                            using (BinaryWriter writer = new BinaryWriter(entry.Open()))
                             {
-                                using(StreamReader reader = new StreamReader(entry.Open()))
-                                {
-                                    writer.Write(reader.ReadToEnd());
-                                    reader.Close();
-                                }
-                                writer.Flush();
-                                writer.Close();
+                                writer.Write(WAVs[wav]);
+                            }
+                        }
+                        foreach (string PNG in Images.Keys)
+                        {
+                            ZipArchiveEntry entry = archive.CreateEntry(PNG);
+                            using (BinaryWriter writer = new BinaryWriter(entry.Open()))
+                            {
+                                writer.Write((byte[])new ImageConverter().ConvertTo(Images[PNG], typeof(byte[])));
                             }
                         }
                     }
-                    stream.Flush();
-                    stream.Close();
                 }
             }
+        
+    
 
             using (storyBits = ZipFile.Open(path + "\\" + this.Name + ".ypac", ZipArchiveMode.Update))
             {
