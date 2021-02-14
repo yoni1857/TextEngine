@@ -19,6 +19,7 @@ namespace StoryMaker
         public string Name;
         public readonly DateTime CreationDate;
         public Dictionary<TreeNode, Data> Nodes;
+        public readonly ZipArchive resArchive;
 
         public Project(string name)
         {
@@ -27,6 +28,14 @@ namespace StoryMaker
             Nodes.Add(new TreeNode("dialog"), new Data());
             CreationDate = DateTime.Now;
         }
+        public Project(string name, ZipArchive resArchive)
+        {
+            Name = name;
+            Nodes = new Dictionary<TreeNode, Data>();
+            Nodes.Add(new TreeNode("dialog"), new Data());
+            CreationDate = DateTime.Now;
+            this.resArchive = resArchive;
+        }
         public Project(string name, Dictionary<TreeNode, Data> nodes)
         {
             Name = name;
@@ -34,6 +43,15 @@ namespace StoryMaker
                 nodes.Add(new TreeNode("dialog"), new Data());
             Nodes = nodes;
             CreationDate = DateTime.Now;
+        }
+        public Project(string name, Dictionary<TreeNode, Data> nodes, ZipArchive resArchive)
+        {
+            Name = name;
+            if (nodes.Count == 0)
+                nodes.Add(new TreeNode("dialog"), new Data());
+            Nodes = nodes;
+            CreationDate = DateTime.Now;
+            this.resArchive = resArchive;
         }
 
         public static void ToFile(string path, Project project)
@@ -59,9 +77,59 @@ namespace StoryMaker
             }
         }
 
-        public ZipArchive ExportToStory(string path = "")
+        public ZipArchive[] ExportToStory(string path = "")
         {
-            using (ZipArchive storyBits = ZipFile.Open(path + "\\" + this.Name + ".ypac", ZipArchiveMode.Update))
+            ZipArchive storyBits;
+            ZipArchive resBits;
+
+            using (resBits = ZipFile.Open(path + "\\" + this.Name + "_res64.ypac", ZipArchiveMode.Update))
+            {
+                if (resBits.GetEntry("package.xml") == null)
+                {
+                    ZipArchiveEntry manifest = resBits.CreateEntry("package.xml");
+                    Package package = new Package();
+                    package.Author = "StoryMaker";
+                    package.Name = this.Name+" Resource Archive";
+                    package.ExtractPath = "\\";
+                    using (StringWriter writer = new StringWriter())
+                    {
+                        XmlSerializer serializer = new XmlSerializer(package.GetType());
+                        serializer.Serialize(writer, package);
+                        using (StreamWriter streamWriter = new StreamWriter(manifest.Open()))
+                        {
+                            streamWriter.Write(writer.ToString());
+                            streamWriter.Close();
+                            writer.Close();
+                        }
+                    }
+                }
+
+                ZipArchiveEntry res64 = resBits.CreateEntry("res64.pak");
+                using (Stream stream = res64.Open())
+                {
+                    using(ZipArchive tempArchive = new ZipArchive(stream))
+                    {
+                        foreach (ZipArchiveEntry entry in resArchive.Entries)
+                        {
+                            ZipArchiveEntry newEntry = tempArchive.CreateEntry(entry.Name);
+                            using(StreamWriter writer = new StreamWriter(newEntry.Open()))
+                            {
+                                using(StreamReader reader = new StreamReader(entry.Open()))
+                                {
+                                    writer.Write(reader.ReadToEnd());
+                                    reader.Close();
+                                }
+                                writer.Flush();
+                                writer.Close();
+                            }
+                        }
+                    }
+                    stream.Flush();
+                    stream.Close();
+                }
+            }
+
+            using (storyBits = ZipFile.Open(path + "\\" + this.Name + ".ypac", ZipArchiveMode.Update))
             {
                 if (storyBits.GetEntry("package.xml") == null)
                 {
@@ -82,6 +150,8 @@ namespace StoryMaker
                         }
                     }
                 }
+
+
 
                 foreach (KeyValuePair<TreeNode, Data> Node in Nodes)
                 {
@@ -125,8 +195,10 @@ namespace StoryMaker
                 }
 
                 
-                return storyBits;
+                
             }
+
+            return new ZipArchive[] { storyBits, resBits };
         }
     }
 }

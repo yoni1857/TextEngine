@@ -22,13 +22,13 @@ namespace TextEngine
 {
     public partial class Form1 : Form
     {
-        string MyPath = Directory.GetParent(System.Reflection.Assembly.GetEntryAssembly().Location).FullName;
+        readonly string MyPath = Directory.GetParent(System.Reflection.Assembly.GetEntryAssembly().Location).FullName;
         Data currentDialog;
         ZipArchive currentArchive;
         string currentArchiveName;
         private WaveOutEvent outputDevice;
         private WaveStream waveStream;
-        private SpeechSynthesizer SpeechSynthesizer = new SpeechSynthesizer();
+        private readonly SpeechSynthesizer SpeechSynthesizer = new SpeechSynthesizer();
         private string desc = "TestEngine Game.";
         private Color playerText = Color.GreenYellow;
         private Color otherText = Color.Blue;
