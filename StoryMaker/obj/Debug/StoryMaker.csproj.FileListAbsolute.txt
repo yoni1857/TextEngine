@@ -12,3 +12,4 @@ C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.cspro
 C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.csproj.CopyComplete
 C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.exe
 C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.pdb
+C:\Users\yonim\Documents\GitHub\TextEngine\StoryMaker\obj\Debug\StoryMaker.ProjectEditDialog.resources

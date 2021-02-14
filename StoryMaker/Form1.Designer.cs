@@ -30,7 +30,7 @@ namespace StoryMaker
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("dialog");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("dialog");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,17 +52,35 @@ namespace StoryMaker
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.dialogImagePicker = new System.Windows.Forms.ComboBox();
+            this.dialogImageBox = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.promptBox = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.replyList = new System.Windows.Forms.ListView();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnPreviewWAV = new System.Windows.Forms.Button();
+            this.wavPicker = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.exportFileDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.controls = new System.Windows.Forms.TableLayoutPanel();
+            this.btnMax = new System.Windows.Forms.Button();
+            this.btnMin = new System.Windows.Forms.Button();
+            this.textContainer = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -70,12 +88,17 @@ namespace StoryMaker
             this.splitContainer1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dialogImageBox)).BeginInit();
+            this.panel2.SuspendLayout();
+            this.contextMenuStrip2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.controls.SuspendLayout();
+            this.textContainer.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -87,7 +110,7 @@ namespace StoryMaker
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1109, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -222,9 +245,9 @@ namespace StoryMaker
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 388);
-            this.splitContainer1.SplitterDistance = 266;
+            this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
+            this.splitContainer1.Size = new System.Drawing.Size(1109, 618);
+            this.splitContainer1.SplitterDistance = 368;
             this.splitContainer1.TabIndex = 1;
             // 
             // treeView1
@@ -238,11 +261,11 @@ namespace StoryMaker
             this.treeView1.HideSelection = false;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "dialog";
-            treeNode1.Text = "dialog";
+            treeNode2.Name = "dialog";
+            treeNode2.Text = "dialog";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.treeView1.Size = new System.Drawing.Size(266, 338);
+            treeNode2});
+            this.treeView1.Size = new System.Drawing.Size(368, 568);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
@@ -277,12 +300,12 @@ namespace StoryMaker
             this.tableLayoutPanel1.Controls.Add(this.button1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.button2, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 338);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 568);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(266, 50);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(368, 50);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // button1
@@ -295,7 +318,7 @@ namespace StoryMaker
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(3, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(127, 44);
+            this.button1.Size = new System.Drawing.Size(178, 44);
             this.button1.TabIndex = 0;
             this.button1.Text = "Add Child To Selected";
             this.button1.UseVisualStyleBackColor = true;
@@ -309,340 +332,201 @@ namespace StoryMaker
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(136, 3);
+            this.button2.Location = new System.Drawing.Point(187, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(127, 44);
+            this.button2.Size = new System.Drawing.Size(178, 44);
             this.button2.TabIndex = 1;
             this.button2.Text = "Remove Selected";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
-            // splitContainer2
+            // flowLayoutPanel1
             // 
-            this.splitContainer2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.listBox1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.panel1);
-            this.splitContainer2.Panel2.Controls.Add(this.label1);
-            this.splitContainer2.Size = new System.Drawing.Size(530, 388);
-            this.splitContainer2.SplitterDistance = 176;
-            this.splitContainer2.TabIndex = 0;
-            // 
-            // listBox1
-            // 
-            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Font = new System.Drawing.Font("Segoe UI Black", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.ForeColor = System.Drawing.Color.White;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 37;
-            this.listBox1.Items.AddRange(new object[] {
-            "0 PROMPT",
-            "1 OPTION",
-            "2 OPTION",
-            "3 OPTION",
-            "4 OPTION",
-            "5 OPTION",
-            "6 OPTION",
-            "7 OPTION",
-            "8 OPTION",
-            "9 OPTION",
-            "10 OPTION",
-            "11 OPTION",
-            "12 OPTION",
-            "13 OPTION",
-            "14 OPTION",
-            "15 OPTION",
-            "16 OPTION",
-            "17 OPTION",
-            "18 OPTION",
-            "19 OPTION",
-            "20 OPTION",
-            "21 OPTION",
-            "22 OPTION",
-            "23 OPTION",
-            "24 OPTION",
-            "25 OPTION",
-            "26 OPTION",
-            "27 OPTION",
-            "28 OPTION",
-            "29 OPTION",
-            "30 OPTION",
-            "31 OPTION",
-            "32 OPTION",
-            "33 OPTION",
-            "34 OPTION",
-            "35 OPTION",
-            "36 OPTION",
-            "37 OPTION",
-            "38 OPTION",
-            "39 OPTION",
-            "40 OPTION",
-            "41 OPTION",
-            "42 OPTION",
-            "43 OPTION",
-            "44 OPTION",
-            "45 OPTION",
-            "46 OPTION",
-            "47 OPTION",
-            "48 OPTION",
-            "49 OPTION",
-            "50 OPTION",
-            "51 OPTION",
-            "52 OPTION",
-            "53 OPTION",
-            "54 OPTION",
-            "55 OPTION",
-            "56 OPTION",
-            "57 OPTION",
-            "58 OPTION",
-            "59 OPTION",
-            "60 OPTION",
-            "61 OPTION",
-            "62 OPTION",
-            "63 OPTION",
-            "64 OPTION",
-            "65 OPTION",
-            "66 OPTION",
-            "67 OPTION",
-            "68 OPTION",
-            "69 OPTION",
-            "70 OPTION",
-            "71 OPTION",
-            "72 OPTION",
-            "73 OPTION",
-            "74 OPTION",
-            "75 OPTION",
-            "76 OPTION",
-            "77 OPTION",
-            "78 OPTION",
-            "79 OPTION",
-            "80 OPTION",
-            "81 OPTION",
-            "82 OPTION",
-            "83 OPTION",
-            "84 OPTION",
-            "85 OPTION",
-            "86 OPTION",
-            "87 OPTION",
-            "88 OPTION",
-            "89 OPTION",
-            "90 OPTION",
-            "91 OPTION",
-            "92 OPTION",
-            "93 OPTION",
-            "94 OPTION",
-            "95 OPTION",
-            "96 OPTION",
-            "97 OPTION",
-            "98 OPTION",
-            "99 OPTION",
-            "100 OPTION",
-            "101 OPTION",
-            "102 OPTION",
-            "103 OPTION",
-            "104 OPTION",
-            "105 OPTION",
-            "106 OPTION",
-            "107 OPTION",
-            "108 OPTION",
-            "109 OPTION",
-            "110 OPTION",
-            "111 OPTION",
-            "112 OPTION",
-            "113 OPTION",
-            "114 OPTION",
-            "115 OPTION",
-            "116 OPTION",
-            "117 OPTION",
-            "118 OPTION",
-            "119 OPTION",
-            "120 OPTION",
-            "121 OPTION",
-            "122 OPTION",
-            "123 OPTION",
-            "124 OPTION",
-            "125 OPTION",
-            "126 OPTION",
-            "127 OPTION",
-            "128 OPTION",
-            "129 OPTION",
-            "130 OPTION",
-            "131 OPTION",
-            "132 OPTION",
-            "133 OPTION",
-            "134 OPTION",
-            "135 OPTION",
-            "136 OPTION",
-            "137 OPTION",
-            "138 OPTION",
-            "139 OPTION",
-            "140 OPTION",
-            "141 OPTION",
-            "142 OPTION",
-            "143 OPTION",
-            "144 OPTION",
-            "145 OPTION",
-            "146 OPTION",
-            "147 OPTION",
-            "148 OPTION",
-            "149 OPTION",
-            "150",
-            "151",
-            "152",
-            "153",
-            "154",
-            "155",
-            "156",
-            "157",
-            "158",
-            "159",
-            "160",
-            "161",
-            "162",
-            "163",
-            "164",
-            "165",
-            "166",
-            "167",
-            "168",
-            "169",
-            "170",
-            "171",
-            "172",
-            "173",
-            "174",
-            "175",
-            "176",
-            "177",
-            "178",
-            "179",
-            "180",
-            "181",
-            "182",
-            "183",
-            "184",
-            "185",
-            "186",
-            "187",
-            "188",
-            "189",
-            "190",
-            "191",
-            "192",
-            "193",
-            "194",
-            "195",
-            "196",
-            "197",
-            "198",
-            "199",
-            "200",
-            "201",
-            "202",
-            "203",
-            "204",
-            "205",
-            "206",
-            "207",
-            "208",
-            "209",
-            "210",
-            "211",
-            "212",
-            "213",
-            "214",
-            "215",
-            "216",
-            "217",
-            "218",
-            "219",
-            "220",
-            "221",
-            "222",
-            "223",
-            "224",
-            "225",
-            "226",
-            "227",
-            "228",
-            "229",
-            "230",
-            "231",
-            "232",
-            "233",
-            "234",
-            "235",
-            "236",
-            "237",
-            "238",
-            "239",
-            "240",
-            "241",
-            "242",
-            "243",
-            "244",
-            "245",
-            "246",
-            "247",
-            "248",
-            "249",
-            "250",
-            "251",
-            "252",
-            "253",
-            "254 BACKGROUND MUSIC",
-            "255 IMAGE"});
-            this.listBox1.Location = new System.Drawing.Point(0, 0);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(176, 388);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.flowLayoutPanel1.AutoSize = true;
+            this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.flowLayoutPanel1.Controls.Add(this.panel1);
+            this.flowLayoutPanel1.Controls.Add(this.panel2);
+            this.flowLayoutPanel1.Controls.Add(this.panel3);
+            this.flowLayoutPanel1.Controls.Add(this.panel4);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(737, 618);
+            this.flowLayoutPanel1.TabIndex = 0;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.panel1.Controls.Add(this.richTextBox1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 17);
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.dialogImageBox);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.dialogImagePicker);
+            this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(3);
-            this.panel1.Size = new System.Drawing.Size(350, 371);
-            this.panel1.TabIndex = 2;
+            this.panel1.Size = new System.Drawing.Size(333, 298);
+            this.panel1.TabIndex = 0;
             // 
-            // richTextBox1
+            // dialogImagePicker
             // 
-            this.richTextBox1.AcceptsTab = true;
-            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Font = new System.Drawing.Font("Consolas", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.ForeColor = System.Drawing.Color.White;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 3);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(344, 365);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            this.dialogImagePicker.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dialogImagePicker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dialogImagePicker.FormattingEnabled = true;
+            this.dialogImagePicker.Location = new System.Drawing.Point(0, 274);
+            this.dialogImagePicker.Name = "dialogImagePicker";
+            this.dialogImagePicker.Size = new System.Drawing.Size(333, 24);
+            this.dialogImagePicker.TabIndex = 1;
+            this.dialogImagePicker.SelectedValueChanged += new System.EventHandler(this.dialogImagePicker_SelectedValueChanged);
+            // 
+            // dialogImageBox
+            // 
+            this.dialogImageBox.BackColor = System.Drawing.Color.Black;
+            this.dialogImageBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.dialogImageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dialogImageBox.Location = new System.Drawing.Point(0, 17);
+            this.dialogImageBox.Name = "dialogImageBox";
+            this.dialogImageBox.Size = new System.Drawing.Size(333, 257);
+            this.dialogImageBox.TabIndex = 0;
+            this.dialogImageBox.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.Controls.Add(this.textContainer);
+            this.panel2.Controls.Add(this.controls);
+            this.panel2.Location = new System.Drawing.Point(3, 307);
+            this.panel2.MaximumSize = new System.Drawing.Size(1200, 1000);
+            this.panel2.MinimumSize = new System.Drawing.Size(400, 200);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(500, 300);
+            this.panel2.TabIndex = 2;
+            this.panel2.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.panel2_PreviewKeyDown);
+            // 
+            // promptBox
+            // 
+            this.promptBox.BackColor = System.Drawing.Color.Black;
+            this.promptBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.promptBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.promptBox.Font = new System.Drawing.Font("Consolas", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.promptBox.ForeColor = System.Drawing.Color.White;
+            this.promptBox.Location = new System.Drawing.Point(5, 5);
+            this.promptBox.Name = "promptBox";
+            this.promptBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.promptBox.Size = new System.Drawing.Size(490, 265);
+            this.promptBox.TabIndex = 1;
+            this.promptBox.Text = "";
+            this.promptBox.TextChanged += new System.EventHandler(this.promptBox_TextChanged);
             // 
             // label1
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Black;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(350, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Edit selected dialog option:";
+            this.label1.Size = new System.Drawing.Size(94, 25);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Prompt Text:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // replyList
+            // 
+            this.replyList.AutoArrange = false;
+            this.replyList.BackColor = System.Drawing.Color.Black;
+            this.replyList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.replyList.ContextMenuStrip = this.contextMenuStrip2;
+            this.replyList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.replyList.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.replyList.ForeColor = System.Drawing.Color.White;
+            this.replyList.FullRowSelect = true;
+            this.replyList.GridLines = true;
+            this.replyList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.replyList.HideSelection = false;
+            this.replyList.LabelEdit = true;
+            this.replyList.Location = new System.Drawing.Point(0, 17);
+            this.replyList.MultiSelect = false;
+            this.replyList.Name = "replyList";
+            this.replyList.Size = new System.Drawing.Size(300, 283);
+            this.replyList.TabIndex = 3;
+            this.replyList.UseCompatibleStateImageBehavior = false;
+            this.replyList.View = System.Windows.Forms.View.List;
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(123, 52);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(122, 24);
+            this.toolStripMenuItem3.Text = "Add";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(122, 24);
+            this.toolStripMenuItem4.Text = "Delete";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
+            this.panel3.Controls.Add(this.panel5);
+            this.panel3.Controls.Add(this.label2);
+            this.panel3.Location = new System.Drawing.Point(509, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(200, 100);
+            this.panel3.TabIndex = 4;
+            // 
+            // btnPreviewWAV
+            // 
+            this.btnPreviewWAV.BackColor = System.Drawing.Color.Gray;
+            this.btnPreviewWAV.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnPreviewWAV.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnPreviewWAV.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
+            this.btnPreviewWAV.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.btnPreviewWAV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPreviewWAV.ForeColor = System.Drawing.Color.White;
+            this.btnPreviewWAV.Location = new System.Drawing.Point(5, 49);
+            this.btnPreviewWAV.Name = "btnPreviewWAV";
+            this.btnPreviewWAV.Size = new System.Drawing.Size(190, 29);
+            this.btnPreviewWAV.TabIndex = 2;
+            this.btnPreviewWAV.Text = "Preview";
+            this.btnPreviewWAV.UseVisualStyleBackColor = false;
+            this.btnPreviewWAV.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // wavPicker
+            // 
+            this.wavPicker.BackColor = System.Drawing.Color.OrangeRed;
+            this.wavPicker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wavPicker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.wavPicker.FormattingEnabled = true;
+            this.wavPicker.Location = new System.Drawing.Point(5, 5);
+            this.wavPicker.Name = "wavPicker";
+            this.wavPicker.Size = new System.Drawing.Size(190, 24);
+            this.wavPicker.TabIndex = 1;
+            this.wavPicker.SelectedIndexChanged += new System.EventHandler(this.wavPicker_SelectedIndexChanged);
+            this.wavPicker.SelectedValueChanged += new System.EventHandler(this.wavPicker_SelectedValueChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Black;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(0, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(128, 17);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Background Music:";
             // 
             // timer1
             // 
@@ -654,10 +538,10 @@ namespace StoryMaker
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 416);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 646);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.statusStrip1.Size = new System.Drawing.Size(800, 34);
+            this.statusStrip1.Size = new System.Drawing.Size(1109, 34);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -669,7 +553,6 @@ namespace StoryMaker
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(92, 28);
             this.toolStripStatusLabel1.Text = "dialog:0";
-            this.toolStripStatusLabel1.TextChanged += new System.EventHandler(this.toolStripStatusLabel1_TextChanged);
             // 
             // saveFileDialog1
             // 
@@ -684,12 +567,127 @@ namespace StoryMaker
             this.openFileDialog1.Filter = "StoryMaker Project |*.smprj| All Files |*.*";
             this.openFileDialog1.Title = "Open a project";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Black;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 17);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Dialog Image:";
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.Transparent;
+            this.panel4.Controls.Add(this.replyList);
+            this.panel4.Controls.Add(this.label4);
+            this.panel4.Location = new System.Drawing.Point(509, 109);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(300, 300);
+            this.panel4.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Black;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(0, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(101, 17);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Reply Options:";
+            // 
+            // controls
+            // 
+            this.controls.ColumnCount = 4;
+            this.controls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.controls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.controls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.controls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.controls.Controls.Add(this.btnMax, 2, 0);
+            this.controls.Controls.Add(this.btnMin, 3, 0);
+            this.controls.Controls.Add(this.label1, 0, 0);
+            this.controls.Dock = System.Windows.Forms.DockStyle.Top;
+            this.controls.Location = new System.Drawing.Point(0, 0);
+            this.controls.Name = "controls";
+            this.controls.RowCount = 1;
+            this.controls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.controls.Size = new System.Drawing.Size(500, 25);
+            this.controls.TabIndex = 3;
+            // 
+            // btnMax
+            // 
+            this.btnMax.BackColor = System.Drawing.Color.Black;
+            this.btnMax.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMax.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnMax.FlatAppearance.BorderSize = 0;
+            this.btnMax.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.btnMax.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.btnMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMax.ForeColor = System.Drawing.Color.White;
+            this.btnMax.Location = new System.Drawing.Point(400, 0);
+            this.btnMax.Margin = new System.Windows.Forms.Padding(0);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(50, 25);
+            this.btnMax.TabIndex = 0;
+            this.btnMax.Text = "+";
+            this.btnMax.UseVisualStyleBackColor = false;
+            this.btnMax.Click += new System.EventHandler(this.button3_Click_1);
+            // 
+            // btnMin
+            // 
+            this.btnMin.BackColor = System.Drawing.Color.Black;
+            this.btnMin.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMin.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnMin.FlatAppearance.BorderSize = 0;
+            this.btnMin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.btnMin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMin.ForeColor = System.Drawing.Color.White;
+            this.btnMin.Location = new System.Drawing.Point(450, 0);
+            this.btnMin.Margin = new System.Windows.Forms.Padding(0);
+            this.btnMin.Name = "btnMin";
+            this.btnMin.Size = new System.Drawing.Size(50, 25);
+            this.btnMin.TabIndex = 1;
+            this.btnMin.Text = "-";
+            this.btnMin.UseVisualStyleBackColor = false;
+            this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
+            // 
+            // textContainer
+            // 
+            this.textContainer.BackColor = System.Drawing.Color.Black;
+            this.textContainer.Controls.Add(this.promptBox);
+            this.textContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textContainer.Location = new System.Drawing.Point(0, 25);
+            this.textContainer.Name = "textContainer";
+            this.textContainer.Padding = new System.Windows.Forms.Padding(5);
+            this.textContainer.Size = new System.Drawing.Size(500, 275);
+            this.textContainer.TabIndex = 4;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.Black;
+            this.panel5.Controls.Add(this.wavPicker);
+            this.panel5.Controls.Add(this.btnPreviewWAV);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(0, 17);
+            this.panel5.Name = "panel5";
+            this.panel5.Padding = new System.Windows.Forms.Padding(5);
+            this.panel5.Size = new System.Drawing.Size(200, 83);
+            this.panel5.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1109, 680);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.statusStrip1);
@@ -701,17 +699,27 @@ namespace StoryMaker
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dialogImageBox)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.contextMenuStrip2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.controls.ResumeLayout(false);
+            this.controls.PerformLayout();
+            this.textContainer.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -727,9 +735,6 @@ namespace StoryMaker
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
@@ -749,8 +754,29 @@ namespace StoryMaker
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox dialogImagePicker;
+        private System.Windows.Forms.PictureBox dialogImageBox;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RichTextBox promptBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListView replyList;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button btnPreviewWAV;
+        private System.Windows.Forms.ComboBox wavPicker;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TableLayoutPanel controls;
+        private System.Windows.Forms.Button btnMax;
+        private System.Windows.Forms.Button btnMin;
+        private System.Windows.Forms.Panel textContainer;
+        private System.Windows.Forms.Panel panel5;
     }
 }
 

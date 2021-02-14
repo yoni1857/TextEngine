@@ -56,6 +56,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Project.cs" />
+    <Compile Include="ProjectEditDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectEditDialog.Designer.cs">
+      <DependentUpon>ProjectEditDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProjectDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +71,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectEditDialog.resx">
+      <DependentUpon>ProjectEditDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectDialog.resx">
       <DependentUpon>ProjectDialog.cs</DependentUpon>
