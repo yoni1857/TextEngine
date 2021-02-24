@@ -1,0 +1,17 @@
+PackageCreatorTool/obj
+PackageCreatorTool/bin
+YDK/obj
+YDK/bin
+YDK List Editor/obj
+YDK List Editor/bin
+TextEngine/obj
+TextEngine/bin
+*.exe
+*.cache
+*.suo
+.vs/
+.vs/TextEngine/v16/.suo
+*.dll
+*.exe
+.vs/TextEngine/v16/.suo
+*.dll

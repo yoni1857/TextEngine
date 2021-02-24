@@ -1,0 +1,1 @@
+C:\Users\yonim\Documents\GitHub\TextEngine\TextEngine\bin\Debug\Story\story1.pak
