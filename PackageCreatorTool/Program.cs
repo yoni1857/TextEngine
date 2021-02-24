@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YDK;
+using YDK.ComponentSystem;
 using System.IO;
 
 namespace PackageCreatorTool
 {
     class Program
     {
+        static Field<int> fig;
+
         static void Main(string[] args)
         {
             if (args.Length <= 5)
