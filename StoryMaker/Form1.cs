@@ -325,9 +325,12 @@ namespace StoryMaker
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
             promptBox_TextChanged(sender, e);
-            if (replyList.SelectedItems != null)
+            if (replyList.SelectedItems.Count > 0)
             {
                 replyList.Items.Remove(replyList.SelectedItems[0]);
+            } else
+            {
+                MessageBox.Show("Please select an item first!");
             }
         }
 
@@ -412,14 +415,14 @@ namespace StoryMaker
 
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
+        private void removeLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            panel2.Size = new Size(panel2.Width + 100, panel2.Height + 100);
+            toolStripMenuItem4_Click(sender, e);
         }
 
-        private void btnMin_Click(object sender, EventArgs e)
+        private void AddLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            panel2.Size = new Size(panel2.Width - 100, panel2.Height - 100);
+            addToolStripMenuItem_Click(sender, e);
         }
     }
 }
